@@ -3,6 +3,8 @@ package com.daumsoft.news;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +23,7 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	private NewsDataImpl newsData = new NewsDataImpl();
+	private Map[] keywordDocumentsMap = null;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -39,10 +42,14 @@ public class HomeController {
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String newsHome(Model model){
 		
-//		newsData.setCommand("GetCategoryList");
 		newsData.setCommand("GetKeywordDocuments");
-		newsData.getResponseData();
 		
-		return null;
+		// map[] 반환
+		keywordDocumentsMap = newsData.getResponseData();
+		model.addAttribute("documents", keywordDocumentsMap);
+		
+		return "news_home";
 	}
+	
+//	newsData.setCommand("GetCategoryList");
 }

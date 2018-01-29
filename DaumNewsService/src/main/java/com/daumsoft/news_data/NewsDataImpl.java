@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.util.Map;
 
 import com.daumsoft.command.GetCategoryList;
 import com.daumsoft.command.GetKeywordDocuments;
@@ -13,17 +14,16 @@ import com.daumsoft.command.HttpInputData;
 
 public class NewsDataImpl implements NewsData{
 	
+	private String myCommand = new String();
 	private HttpCommand httpCommand = null;				// API 쿼리 커맨드 설정 객체
 	private HttpURLConnection connection = null; 		// API 쿼리 커넥션 획득 객체
 	private HttpConnection httpConnection = null;		// API httpConnection 	
 	private HttpInputData httpInputData = null;			// API 입력 변수 객체
-	private StringBuilder readLineBuilder = null;		// API 응답 결과 획득 객체
 	
 	private NewsParser newsParser = null;
 	
 	// -- 디폴트 생성자
 	public NewsDataImpl(){
-		readLineBuilder = new StringBuilder();
 		httpInputData = new HttpInputData();
 		newsParser = new NewsParser();
 	}
@@ -41,10 +41,12 @@ public class NewsDataImpl implements NewsData{
 		 * ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 		 **/
 		
+		// 멤버 필드 설정
+		this.myCommand = command;
+		
 		// 특정 분류체계의 모든 분류 조회
 		if(command.equals("GetCategoryList")){
 			httpCommand = new GetCategoryList();
-			
 		}
 		
 		// 입력한 키워드가 발현된 문서
@@ -74,25 +76,23 @@ public class NewsDataImpl implements NewsData{
 	}
 	
 	// -- 응답 데이터 확인
+	// -- 제네릭 사용 매개변수 불특정 경고 제거
 	@Override
-	public String getResponseData() {
+	@SuppressWarnings("rawtypes")
+	public Map[] getResponseData() {
+		BufferedReader bufferedReader = null;
 		
 		try{
 			InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream(), "UTF-8");
-			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-			String line = new String();
-			
-			// 결과값 읽어들이기.
-			while((line = bufferedReader.readLine()) != null)
-				readLineBuilder.append(line);
-			
-			// json 파싱
-//			newsParser.parseJson2Object(readLineBuilder.toString());
+			bufferedReader = new BufferedReader(inputStreamReader);
 		}
+		
 		catch(IOException e){
 			e.printStackTrace();
 		}
 		
-		return null;
+		// Map[] 반환
+		Map[] mapArray = newsParser.convertList2Map(newsParser.readAndParseData(bufferedReader, myCommand));
+		return mapArray;
 	}
 }
