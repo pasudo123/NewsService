@@ -87,7 +87,7 @@ public class NewsDataImpl implements NewsData{
 				readLineBuilder.append(line);
 			
 			// json 파싱
-			newsParser.parseJson2Object(readLineBuilder.toString());
+//			newsParser.parseJson2Object(readLineBuilder.toString());
 		}
 		catch(IOException e){
 			e.printStackTrace();
