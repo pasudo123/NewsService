@@ -1,0 +1,2 @@
+# NewsService
+Implements NewsService
