@@ -4,18 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.daumsoft.command.GetCategoryList;
 import com.daumsoft.command.GetKeywordDocuments;
 import com.daumsoft.command.HttpCommand;
 import com.daumsoft.command.HttpConnection;
 import com.daumsoft.command.HttpInputData;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
 
 public class NewsDataImpl implements NewsData{
 	
@@ -35,7 +29,6 @@ public class NewsDataImpl implements NewsData{
 	}
 	
 	// -- 명령어 찾기 & 명령어 설정
-	@Override
 	public void setCommand(String command){
 		/**
 		 * ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
