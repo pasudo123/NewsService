@@ -5,14 +5,14 @@
 <HTML>
     <HEAD>
         <META CHARSET="UTF-8">
-        <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/news_home.css" />">
+        <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/news_sociaty.css" />">
     </HEAD>
     
     <BODY>
     	<c:import url="news_menu.jsp" charEncoding="UTF-8"></c:import>
 	
 		<div class="topicWrapper">
-			<div>뉴스 홈 화면 토픽</div>
+			<div>사회 경제 뉴스</div>
 		</div>
     </BODY>
 </HTML>

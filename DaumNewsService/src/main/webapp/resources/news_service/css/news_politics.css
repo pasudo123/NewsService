@@ -1,0 +1,27 @@
+@CHARSET "UTF-8";
+
+@font-face{
+    font-family: 'NanumSquareEB';
+    src:url(../font/NanumSquareEB.ttf) format('truetype');
+}
+
+body{
+	color:#3b3838;
+    font-family:'NanumSquareEB';
+    margin:0;
+}
+
+/**
+
+ㅡㅡㅡ 기본 사이즈 설정 ㅡㅡㅡ
+
+- width : 1480px
+- height : ? px
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+**/
+
+a.politicsLink{
+	color:#03cf16;
+    border-bottom:2px solid #03cf16;
+}

@@ -1,0 +1,97 @@
+@CHARSET "UTF-8";
+
+@font-face{
+    font-family: 'NanumSquareEB';
+    src:url(../font/NanumSquareEB.ttf) format('truetype');
+}
+
+@font-face{
+    font-family:'NanumSquareB';
+    src:url(../font/NanumSquareB.ttf) format('truetype');
+}
+
+body{
+    color:#3b3838;
+    font-family:'NanumSquareEB';
+    margin:0;
+}
+
+div.aboutNewsWrapper{
+    width:700px;
+    margin:0 auto;
+    /* border: 1px solid blue; */
+}
+
+div.newsInfoWrapper{
+    width:700px;
+    height:auto;
+    margin-top:50px;
+    /* border:1px solid red; */
+}
+
+
+/**
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+        - 언론사 표시 래퍼 
+        - 뉴스제목 표시 래퍼
+        - 날짜 표시 래퍼    
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+**/
+div.newsInfoWrapper > div.infoNameWrapper{
+    text-align: left;
+    font-size: 14px;
+
+    /** top - right - bottom - left **/
+    padding:15px 0px 15px 10px;
+}
+
+div.newsInfoWrapper > div.infoTitleWrapper{
+    text-align: left;
+    font-size: 24px;
+    padding:20px 0px 20px 20px;
+}
+
+div.newsInfoWrapper > div.infoDateWrapper{
+    text-align: right;
+    font-size: 16px;
+    padding:15px 15px 15px 0px;
+}
+
+
+/**
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+      - 뉴스의 동영상 혹은 사진 파일
+        (사진이 존재하는 경우 삽입)
+        - 딱 맞지 않아도 상관 없음
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+**/
+div.newsFileWrapper{
+    width:550px;
+    height:300px;
+    /* border:1px solid green; */
+    margin:0 auto;
+}
+
+
+/**
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+                  - 뉴스의 본문
+    
+    뉴스의 본문에서 가독성으로 인해 '다.' 
+    으로 끝나는 내용으로 문단을 나눠주면 좋을 듯
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+**/
+div.newsDetailWrapper{
+    font-family:'NanumSquareB';
+    width:600px;
+    height:200px;
+    padding-top:20px;
+    /* border:1px solid yellowgreen; */
+    margin:0 auto;
+}

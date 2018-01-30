@@ -1,0 +1,121 @@
+@CHARSET "UTF-8";
+
+@font-face{
+    font-family: 'NanumSquareEB';
+    src:url(font/NanumSquareEB.ttf) format('truetype');
+}
+
+body{
+	color:#3b3838;
+    font-family:'NanumSquareEB';
+    margin:0;
+}
+
+div.listWrapper{
+    /* border:1px solid red; */
+    margin:0 auto;
+    width:800px;
+}
+
+div.listWrapper ul{
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+
+div.listWrapper ul li{
+    margin-top:10px;
+}
+
+/**
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+         뉴스 서비스 기사 Content
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+**/
+div.listWrapper ul li div.contentWrapper{
+    border:1px solid rgb(224, 224, 224);
+    width:800px;
+    height:130px;
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,3b3838+40 */
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(59,56,56,1) 40%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%,rgba(59,56,56,1) 40%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(59,56,56,1) 40%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#3b3838',GradientType=1 ); /* IE6-9 */}
+
+/**
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+          Content 내부의 이미지
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+**/
+div.listWrapper ul li div.imageWrapper{
+    float:left;
+    width:290px;
+    height:130px;
+    /* border:1px solid white; */
+}
+
+/**
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+  Content 내부의 타이틀 및 언론사 글 표시
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+**/
+div.textWrapper{
+    margin-left:300px;  /** div.imageWrapper, float 때문에 (10px 여백) **/
+    width:500px;
+    height:130px;
+    color:whitesmoke;
+    display:table;
+}
+
+div.textWrapper > div{
+    margin:0 auto;
+    padding-left:30px;
+    text-align: left;
+    display:table-cell;
+    vertical-align: middle;
+}
+
+div.textWrapper p{
+    font-size:20px;
+    
+    /** 텍스트 많은 경우 생략 기호 **/
+    /** display:inline 도 가능 **/
+    width:460px;
+    display:inline-block; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+div.textWrapper > div > span{
+    position:relative;
+    display:block;
+    bottom:-14px;
+    padding-right:15px;
+    text-align: right;
+    font-size:14px;
+}
+
+/**
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+       Content 진입 타이틀 링크
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+**/
+a.newsTitleLink{
+    text-decoration: none;
+    color:whitesmoke;
+}
+
+a.newsTitleLink:hover{
+    text-decoration:underline;
+}

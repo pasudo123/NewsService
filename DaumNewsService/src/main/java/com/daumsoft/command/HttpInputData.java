@@ -46,7 +46,7 @@ public class HttpInputData {
 		map.put("keyword", value);
 	}
 	
-	// 문서 정렬 방식
+	// 문서 정렬 방식 (0:최신순, 1:정확도)
 	public void setOrderType(Object value){
 		if(((Integer) value) == 1){
 			map.put("orderType", "1");
