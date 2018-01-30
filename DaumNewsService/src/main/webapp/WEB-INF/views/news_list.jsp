@@ -1,33 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+<c:url var="contentUrl" value="./news_content" />
+
 <!DOCTYPE HTML>
 <HTML>
     <HEAD>
         <META CHARSET="UTF-8">
         <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/news_list.css" />" >
+        
+        <script>
+        	function submit(){
+        		document.getElementById("documentform").submit();
+        	}
+        </script>
     </HEAD>
 
     <BODY>
         <div class="Wrapper">
-            <!-- 
-               	뉴스의 타이틀 같은 경우는 글자제한 걸어두기.
-               	글자가 길어지면 div 태그가 넘어감 CSS 깨지기 때문
-             -->
             <div class="listWrapper">
                 <ul>
-                	<c:forEach items="${documents}" var="keyworDocMap">
+                	<c:forEach items="${documents}" var="keyworDocMap" varStatus="status">
 	               		<li>
 	                        <div class="contentWrapper">
 	                            <div class="imageWrapper">
 	
 	                            </div>
-	                            <div class="textWrapper">
-	                            
-	                            	<!-- 30줄 넘어가면 글자 자동으로 e -->
+	                            <div class="textWrapper">	
+	                            	<!-- 30줄 넘어가면 글자 자동으로 생략 -->
 	                                <div>
-	                                    <p><a class="newsTitleLink" href="./news_content">${keyworDocMap['title']}</a></p>
-	                                    <span>${keyworDocMap['writerRealName']}</span>
+	                                	<form:form id="docform_${status.index}" modelAttribute="newsDocumentList" action="${contentUrl}" method="POST" acceptCharset="UTF-8">
+	                                		
+	                                		<!-- 도메인 객체에 바인딩 시키기 위함. -->
+	                                    	<form:hidden path="title" value="${keyworDocMap['title']}" />
+	                                    	<form:hidden path="content" value="${keyworDocMap['content']}" />
+	                                    	<form:hidden path="sequence" value="${keyworDocMap['sequence']}" />
+	                                    	<form:hidden path="url" value="${keyworDocMap['url']}" />
+	                                    	<form:hidden path="writerRealName" value="${keyworDocMap['writerRealName']}" />
+	                                    	<form:hidden path="documentDate" value="${keyworDocMap['documentDate']}" /> 
+<%-- 											<form:hidden path="index" value="${status.index}" /> --%>
+											
+											<!-- a 태그에서 해당 form 태그 url 서브밋 여기-->
+	                                    	<p><a class="newsTitleLink" onclick="document.getElementById('docform_${status.index}').submit();">${keyworDocMap['title']}</a></p>
+	                                    	<span>${keyworDocMap['writerRealName']}</span>
+	                                    </form:form>
 	                                </div>
 	                            </div>
 	                        </div>

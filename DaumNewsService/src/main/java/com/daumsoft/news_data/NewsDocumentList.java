@@ -8,25 +8,19 @@ public class NewsDocumentList {
 	 * 
 	 * **/
 	
-	String date = null;				// 날짜	
+	String documentDate = null;		// 날짜	
 	String sequence = null;			// 순서
-	String projectId = null;		// 프로젝트 아이디
 	String title = null;			// 제목
 	String content = null;			// 내용
 	String url = null;				// 기사 url
-	String writeName = null;		// 작성자
-	String writeRealName = null;	// 실제 작성자
+	String writerRealName = null;	// 실제 작성자
+	String index = null;			// 객체 인덱스
 	
-	
-	// -- getter() & setter()
-	public String getDate() {
-		return date;
+	public String getDocumentDate() {
+		return documentDate;
 	}
 	public String getSequence() {
 		return sequence;
-	}
-	public String getProjectId() {
-		return projectId;
 	}
 	public String getTitle() {
 		return title;
@@ -37,20 +31,14 @@ public class NewsDocumentList {
 	public String getUrl() {
 		return url;
 	}
-	public String getWriteName() {
-		return writeName;
+	public String getWriterRealName() {
+		return writerRealName;
 	}
-	public String getWriteRealName() {
-		return writeRealName;
-	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setDocumentDate(String documentDate) {
+		this.documentDate = documentDate;
 	}
 	public void setSequence(String sequence) {
 		this.sequence = sequence;
-	}
-	public void setProjectId(String projectId) {
-		this.projectId = projectId;
 	}
 	public void setTitle(String title) {
 		this.title = title;
@@ -61,10 +49,19 @@ public class NewsDocumentList {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public void setWriteName(String writeName) {
-		this.writeName = writeName;
+	public void setWriterRealName(String writerRealName) {
+		this.writerRealName = writerRealName;
 	}
-	public void setWriteRealName(String writeRealName) {
-		this.writeRealName = writeRealName;
+	public String getIndex() {
+		return index;
+	}
+	public void setIndex(String index) {
+		this.index = index;
+	}
+	
+	@Override
+	public String toString() {
+		return "NewsDocumentList [documentDate=" + documentDate + ", sequence=" + sequence + ", title=" + title
+				+ ", content=" + content + ", url=" + url + ", writerRealName=" + writerRealName + "]";
 	}
 }

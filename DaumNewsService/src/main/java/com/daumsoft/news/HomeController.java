@@ -1,19 +1,18 @@
 package com.daumsoft.news;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpRequest;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.daumsoft.news_data.NewsDataImpl;
+import com.daumsoft.news_data.NewsDocumentList;
 
 /**
  * Handles requests for the application home page.
@@ -21,26 +20,12 @@ import com.daumsoft.news_data.NewsDataImpl;
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	private NewsDataImpl newsData = new NewsDataImpl();
 	private Map[] keywordDocumentsMap = null;
-	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
-	}
+	private NewsDocumentList newsDocumentList = new NewsDocumentList();
 	
 	// -- Home 메뉴 요청
-	@RequestMapping(value="/home", method=RequestMethod.GET)
+	@RequestMapping(value="/home")
 	public String newsMenuCallHome(Model model){
 		newsData.setCommand("GetKeywordDocuments");
 		
@@ -64,6 +49,13 @@ public class HomeController {
 		model.addAttribute("documents", keywordDocumentsMap);
 		model.addAttribute("size", keywordDocumentsMap.length);
 		model.addAttribute("menu", "politics");
+		
+//		 도메인 객체 생성
+//		newsDocumentList = new NewsDocumentList[keywordDocumentsMap.length];
+//		for(int i = 0; i < newsDocumentList.length; i++)
+//			newsDocumentList[i] = new NewsDocumentList();
+		
+		model.addAttribute("newsDocumentList", newsDocumentList);
 		
 		return "news_politics";
 	}
@@ -93,9 +85,15 @@ public class HomeController {
 	}
 	
 	// -- 뉴스 본문 요청
-	@RequestMapping(value="/news_content")
-	public String showNewsContent(Model model){
+	@RequestMapping(value="/news_content", method=RequestMethod.POST)
+	public String showNewsContent(@ModelAttribute("NewsDocumentList") NewsDocumentList newsDocumentList, Model model){
 		
+		System.out.println(newsDocumentList.toString());
+		model.addAttribute("title", newsDocumentList.getTitle());
+		model.addAttribute("content", newsDocumentList.getContent());
+		model.addAttribute("documentDate", newsDocumentList.getDocumentDate());
+		model.addAttribute("", newsDocumentList.getUrl());
+		model.addAttribute("writerRealName", newsDocumentList.getWriterRealName());
 		
 		return "news_content";
 	}

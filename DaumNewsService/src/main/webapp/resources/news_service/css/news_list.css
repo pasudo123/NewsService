@@ -2,7 +2,7 @@
 
 @font-face{
     font-family: 'NanumSquareEB';
-    src:url(font/NanumSquareEB.ttf) format('truetype');
+    src:url(../font/NanumSquareEB.ttf) format('truetype');
 }
 
 body{
@@ -95,7 +95,7 @@ div.textWrapper p{
     white-space: nowrap
 }
 
-div.textWrapper > div > span{
+div.textWrapper > div > form > span{
     position:relative;
     display:block;
     bottom:-14px;
@@ -111,6 +111,7 @@ div.textWrapper > div > span{
 
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 **/
+
 a.newsTitleLink{
     text-decoration: none;
     color:whitesmoke;
@@ -118,4 +119,5 @@ a.newsTitleLink{
 
 a.newsTitleLink:hover{
     text-decoration:underline;
+    cursor:pointer;
 }
