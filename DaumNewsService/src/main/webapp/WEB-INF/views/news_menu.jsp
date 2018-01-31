@@ -21,17 +21,17 @@
             <div class="menuWrapper">
                 <div class="menuBar">
                     <ul>
-                        <li><a class="homeLink menuLink" href="./home">홈</a></li>
+                        <li><a class="menuLink" id="homeLink" href="./home">홈</a></li>
                         <li class="gapBar"></li>
-                        <li><a class="politicsLink menuLink" href="./politics">정치 · 시사</a></li>
+                        <li><a class="menuLink" id="politicsLink" href="./politics">정치 · 시사</a></li>
                         <li class="gapBar"></li>
-                        <li><a class="sociatyLink menuLink" href="./sociaty">사회 · 경제</a></li>
+                        <li><a class="menuLink" id="sociatyLink" href="./sociaty">사회 · 경제</a></li>
                         <li class="gapBar"></li>
-                        <li><a class="globalLink menuLink" href="./global">세계</a></li>
+                        <li><a class="menuLink" id="globalLink" href="./global">세계</a></li>
                         <li class="gapBar"></li>
-                        <li><a class="cultureLink menuLink" href="./culture">문화 · 생활</a></li>
+                        <li><a class="menuLink" id="cultureLink" href="./culture">문화 · 생활</a></li>
                         <li class="gapBar"></li>
-                        <li><a class="ITLink menuLink" href="./IT">IT</a></li>
+                        <li><a class="menuLink" id="ITLink" href="./IT">IT</a></li>
                     </ul>
                 </div>
             </div>

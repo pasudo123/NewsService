@@ -117,12 +117,21 @@ public class NewsParser{
 		
 		// 해당 맵 데이터에서, documentDate 값 정리
 		for(int index = 0; index < size; index++){
-			String[]dateList = getFormatDate(mapArray[index].get("documentDate"));
+			
+			String[]dateList = new String[6];
+			for(int i = 0; i < dateList.length; i++)
+				dateList[i] = new String();
+			
+			dateList = getFormatDate(mapArray[index].get("documentDate"));
 			
 			mapArray[index].put("parseYear", dateList[0]);
 			mapArray[index].put("parseMonth", dateList[1]);
 			mapArray[index].put("parseDay", dateList[2]);
 			mapArray[index].put("parseWeekDay", dateList[3]);
+			mapArray[index].put("parseHour", dateList[4]);
+			mapArray[index].put("parseMinute", dateList[5]);
+			
+			dateList = null;
 		}
 		
 		// 해당 맵 데이터에서, url 경로 크롤링 >> 이미지 경로 획득
@@ -139,7 +148,7 @@ public class NewsParser{
 		 * [ 보류 ]
 		 * ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 		 * **/
-		
+
 		return mapArray;
 	}
 	
@@ -147,10 +156,13 @@ public class NewsParser{
 		// 캐스팅
 		String documentDate = (String) paramObject;
 		
+		// 년, 월, 일, 요일, 시, 분
 		String year = documentDate.substring(0, 4);
 		String month = documentDate.substring(4, 6);
 		String day = documentDate.substring(6, 8);
 		String weekDay = null; 
+		String hour = documentDate.substring(8, 10);
+		String minute = documentDate.substring(10, 12);
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 		Date date = null;
@@ -197,11 +209,14 @@ public class NewsParser{
 		if(day.startsWith("0"))
 			day = day.substring(1);
 		
-		String[]dateList = new String[4];
+		// 날짜 및 시간 관련 개수 : 6
+		String[]dateList = new String[6];
 		dateList[0] = year + "년";
 		dateList[1] = month + "월";
 		dateList[2] = day + "일";
 		dateList[3] = weekDay + "요일";
+		dateList[4] = hour;
+		dateList[5] = minute;
 		
 		return dateList;
 	}

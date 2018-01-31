@@ -18,10 +18,10 @@ body{
 - width : 1480px
 - height : ? px
 
-ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 **/
 
-a.politicsLink{
+a#politicsLink{
 	color:#03cf16;
     border-bottom:2px solid #03cf16;
 }

@@ -84,16 +84,15 @@ li.gapBar{
 
 a.menuLink{
     text-decoration: none;
-    color:#000000;
+    color:#3b3838;
     padding:25px 4px;
 }
 
 a.menuLink:hover{
-    /** 테마 색상이 되어야 함 **/
+	/* 테마 색상이 되어야 함  */
     color:#03cf16;
     border-bottom:2px solid #03cf16;
 }
-
 
 /**
 ㅡㅡㅡ 뉴스 메뉴 ㅡㅡㅡ

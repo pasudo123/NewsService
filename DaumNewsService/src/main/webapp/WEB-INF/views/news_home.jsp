@@ -5,6 +5,7 @@
 <HTML>
     <HEAD>
         <META CHARSET="UTF-8">
+        
         <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/news_home.css" />">
     </HEAD>
     

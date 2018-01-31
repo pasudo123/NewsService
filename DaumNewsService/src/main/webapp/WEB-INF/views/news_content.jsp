@@ -16,7 +16,7 @@
                 <div class="infoNameWrapper">${writerRealName}</div>
                 <div class="infoTitleWrapper">${title}</div>
                 <hr>
-                <div class="infoDateWrapper">${parseDate[0]} ${parseDate[1]} ${parseDate[2]} ${parseDate[3]}</div>
+                <div class="infoDateWrapper">${parseYear} ${parseMonth} ${parseDay} ${parseWeekDay}, ${parseHour}시 ${parseMinute}분</div>
             </div>
 
             <div class="newsFileWrapper">

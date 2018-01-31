@@ -21,7 +21,7 @@ body{
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 **/
 
-a.sociatyLink{
+a#sociatyLink{
 	color:#03cf16;
     border-bottom:2px solid #03cf16;
 }

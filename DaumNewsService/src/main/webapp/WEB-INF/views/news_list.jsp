@@ -36,7 +36,14 @@
 	                                		<!-- 도메인 객체에 바인딩 시키기 위함. -->
 	                                    	<form:hidden path="title" value="${keyworDocMap['title']}" />
 	                                    	<form:hidden path="content" value="${keyworDocMap['content']}" />
-	                                    	<form:hidden path="parseDate" value="${keyworDocMap['parseDate']}" />
+	                                    	
+	                                    	<form:hidden path="parseYear" value="${keyworDocMap['parseYear']}" />
+	                                    	<form:hidden path="parseMonth" value="${keyworDocMap['parseMonth']}" />
+	                                    	<form:hidden path="parseDay" value="${keyworDocMap['parseDay']}" />
+	                                    	<form:hidden path="parseWeekDay" value="${keyworDocMap['parseWeekDay']}" />
+	                                    	<form:hidden path="parseHour" value="${keyworDocMap['parseHour']}" />
+	                                    	<form:hidden path="parseMinute" value="${keyworDocMap['parseMinute']}" />
+	                                    	
 	                                    	<form:hidden path="sequence" value="${keyworDocMap['sequence']}" />
 	                                    	<form:hidden path="url" value="${keyworDocMap['url']}" />
 	                                    	<form:hidden path="imageUrl" value="${keyworDocMap['imageUrl']}" />

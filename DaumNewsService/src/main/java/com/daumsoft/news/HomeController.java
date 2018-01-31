@@ -84,16 +84,20 @@ public class HomeController {
 	@RequestMapping(value="/news_content", method=RequestMethod.POST)
 	public String showNewsContent(@ModelAttribute("NewsDocumentList") NewsDocumentList newsDocumentList, Model model){
 		
+		// 제목, 내용, 이미지, 언론사
 		model.addAttribute("title", newsDocumentList.getTitle());
 		model.addAttribute("content", newsDocumentList.getContent());
 		model.addAttribute("imageUrl", newsDocumentList.getImageUrl());
-		model.addAttribute("parseDate", newsDocumentList.getParseDate());
 		model.addAttribute("writerRealName", newsDocumentList.getWriterRealName());
 		
-		System.out.println(">>>>>>>>\n" + newsDocumentList.getParseDate()[0]);
-		System.out.println(">>>>>>>>\n" + newsDocumentList.getParseDate()[1]);
-		System.out.println(">>>>>>>>\n" + newsDocumentList.getParseDate()[2]);
-		System.out.println(">>>>>>>>\n" + newsDocumentList.getParseDate()[3]);
+		// 년, 월, 일, 요일, 시, 분
+		model.addAttribute("parseYear", newsDocumentList.getParseYear());
+		model.addAttribute("parseMonth", newsDocumentList.getParseMonth());
+		model.addAttribute("parseDay", newsDocumentList.getParseDay());
+		model.addAttribute("parseWeekDay", newsDocumentList.getParseWeekDay());
+		model.addAttribute("parseHour", newsDocumentList.getParseHour());
+		model.addAttribute("parseMinute", newsDocumentList.getParseMinute());
+		
 		return "news_content";
 	}
 }

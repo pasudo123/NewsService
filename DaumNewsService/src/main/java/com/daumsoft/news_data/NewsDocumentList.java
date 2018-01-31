@@ -9,10 +9,13 @@ public class NewsDocumentList {
 	 * **/
 	
 	String documentDate = null;		// 날짜	
-	String parseYear = null;
-	String parseMonth = null;
-	String parseDay = null;
-	String parseWeekDay = null;
+	String parseYear = null;		// 년도
+	String parseMonth = null;		// 달
+	String parseDay = null;			// 일
+	String parseWeekDay = null;		// 주
+	String parseHour = null;		// 시
+	String parseMinute = null;		// 분
+	
 	
 	String sequence = null;			// 순서
 	String title = null;			// 제목
@@ -86,12 +89,52 @@ public class NewsDocumentList {
 		this.index = index;
 	}
 	
-	public String[] getParseDate() {
-		return parseDate;
+	public String getParseYear() {
+		return parseYear;
 	}
 
-	public void setParseDate(String[] parseDate) {
-		this.parseDate = parseDate;
+	public String getParseMonth() {
+		return parseMonth;
+	}
+
+	public String getParseDay() {
+		return parseDay;
+	}
+
+	public String getParseWeekDay() {
+		return parseWeekDay;
+	}
+
+	public void setParseYear(String parseYear) {
+		this.parseYear = parseYear;
+	}
+
+	public void setParseMonth(String parseMonth) {
+		this.parseMonth = parseMonth;
+	}
+
+	public void setParseDay(String parseDay) {
+		this.parseDay = parseDay;
+	}
+
+	public void setParseWeekDay(String parseWeekDay) {
+		this.parseWeekDay = parseWeekDay;
+	}
+
+	public String getParseHour() {
+		return parseHour;
+	}
+
+	public String getParseMinute() {
+		return parseMinute;
+	}
+
+	public void setParseHour(String parseHour) {
+		this.parseHour = parseHour;
+	}
+
+	public void setParseMinute(String parseMinute) {
+		this.parseMinute = parseMinute;
 	}
 
 	@Override

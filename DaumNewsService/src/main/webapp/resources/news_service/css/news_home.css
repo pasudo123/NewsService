@@ -22,7 +22,7 @@ body{
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 **/
 
-a.homeLink{
+a#homeLink{
 	color:#03cf16;
     border-bottom:2px solid #03cf16;
 }
