@@ -21,8 +21,6 @@ public class NewsGroup {
 	private static final String politics2 = "2/1/9";	// 공공기관		(국회, 청와대)
 	private static final String politics3 = "2/2/10";	// 사회기관, 단체	(정당)
 	
-	
-//	
 //	private static final String politics1 = "1/1/1";	// 사회		(정치인)
 //	private static final String politics2 = "2/1/9";	// 정부 조직	(국회, 청와대)
 //	private static final String politics3 = "2/2/0";	// 기관 단체	(정당)

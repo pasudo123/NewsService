@@ -51,9 +51,22 @@
 	                                    	<form:hidden path="documentDate" value="${keyworDocMap['documentDate']}" /> 
 <%-- 											<form:hidden path="index" value="${status.index}" /> --%>
 											
-											<!-- a 태그에서 해당 form 태그 url 서브밋 여기-->
+											<!-- 
+											ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+											
+											[ 클라이언트 >> 서버 데이터 전달 ]
+											
+											form 태그의 input type=submit을 사용하지 않고,
+											a 태그의 onclick method 이용, javascript로 하였다. 
+											
+											ㅡㅡ> onclick="document.getElementById('docform_${status.index}').submit();"
+											
+											ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+											-->
+											
+											<span class="date">${keyworDocMap['parseYear']} ${keyworDocMap['parseMonth']} ${keyworDocMap['parseDay']}</span>
 	                                    	<p><a class="newsTitleLink" onclick="document.getElementById('docform_${status.index}').submit();">${keyworDocMap['title']}</a></p>
-	                                    	<span>${keyworDocMap['writerRealName']}</span>
+	                                    	<span class="writer">${keyworDocMap['writerRealName']}</span>
 	                                    </form:form>
 	                                </div>
 	                            </div>

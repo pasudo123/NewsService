@@ -125,10 +125,19 @@ div.textWrapper p{
     white-space: nowrap
 }
 
-div.textWrapper > div > form > span{
+div.textWrapper > div span.date{
     position:relative;
     display:block;
-    bottom:-14px;
+    top:-5px;
+    left:-10px;
+    text-align: left;
+    font-size:12px;
+}
+
+div.textWrapper > div span.writer{
+    position:relative;
+    display:block;
+    bottom:-10px;
     padding-right:15px;
     text-align: right;
     font-size:14px;

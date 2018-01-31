@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.daumsoft.command.GetCategoryList;
 import com.daumsoft.command.GetKeywordDocuments;
+import com.daumsoft.command.GetTopKeywords;
 import com.daumsoft.command.HttpCommand;
 import com.daumsoft.command.HttpConnection;
 import com.daumsoft.command.HttpInputData;
@@ -29,7 +30,7 @@ public class NewsDataImpl implements NewsData{
 	}
 	
 	// -- 명령어 찾기 & 명령어 설정
-	public void setCommand(String command){
+	public void setCommand(String command, String category, String keyword){
 		/**
 		 * ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 		 * 
@@ -44,24 +45,73 @@ public class NewsDataImpl implements NewsData{
 		// 멤버 필드 설정
 		this.myCommand = command;
 		
-		// 특정 분류체계의 모든 분류 조회
+		// -- 특정 분류체계의 모든 분류 조회
 		if(command.equals("GetCategoryList")){
 			httpCommand = new GetCategoryList();
 		}
 		
-		// 입력한 키워드가 발현된 문서
+		// -- 입력한 키워드가 발현된 문서
 		if(command.equals("GetKeywordDocuments")){
 			httpCommand = new GetKeywordDocuments();
 			
-			httpInputData.setLanguage();
-			httpInputData.setSource();
-			httpInputData.setStartDate();
-			httpInputData.setEndDate();
-			httpInputData.setKeyword("한파");
-			httpInputData.setCategorySetName("SM");
+			/** ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+			 * 
+			 *     언어, 매체, 날짜 시간, 카테고리 분류체계는 다 정해져 있는 상태
+			 *  [ GetTopKeywords ] 에서 객체 생성 이후에 해당 객체를 이용하기 때문
+			 * 
+			 ** ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ**/
+			
 			httpInputData.setOrderType(0);
 			httpInputData.setRowPerPage(10);
 			httpInputData.setPageNum(3);
+			
+			// 해당 분류 체계에 맞는 키워드를 얻어야 한다.
+			httpInputData.setKeyword(keyword);
+		}
+		
+		// -- 분류 체계 코드에 해당하는 상위 탑 키워드 추출
+		if(command.equals("GetTopKeywords")){
+			httpCommand = new GetTopKeywords();
+			
+			/**ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+			 * setCategoryList 내부에 기입 내용은 직접 정해주었다.
+			 **ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+			
+			// -- 정치 시사, 관련 상위 키워드 : SM
+			if(category.equals("politics")){
+				httpInputData.setCategoryList("1/1/0");
+				httpInputData.setCategorySetName("SM");
+			}
+			
+			// -- 사회 경제, 관련 상위 키워드 : LS
+			if(category.equals("sociaty")){
+				httpInputData.setCategoryList("10/1/37");
+				httpInputData.setCategorySetName("LS");
+			}
+			
+			// -- 세계, 관련 상위 키워드 : SM
+			if(category.equals("global")){
+				httpInputData.setCategoryList("3/1/20");	
+				httpInputData.setCategorySetName("SM");
+			}
+			
+			// -- 문화 생활, 관련 상위 키워드 : LS
+			if(category.equals("culture")) {
+				httpInputData.setCategoryList("8/0/0");
+				httpInputData.setCategorySetName("LS");
+			}
+			
+			// -- IT, 관련 상위 키워드 : LS
+			if(category.equals("IT")){
+				httpInputData.setCategoryList("7/0/0");
+				httpInputData.setCategorySetName("LS");
+			}
+			
+			// 한국어, 뉴스 매체, 한 개 상위 키워드, 시작 종료 날짜, 
+			httpInputData.setLanguage();
+			httpInputData.setSource();
+			httpInputData.setTopN(1);
+			httpInputData.setDate();
 		}
 		
 		setConnection();

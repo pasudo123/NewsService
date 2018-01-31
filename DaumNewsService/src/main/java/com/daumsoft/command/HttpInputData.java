@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class HttpInputData {
 	private Map<String, Object> map = null;
+	private GetParameterDate getParameterDate = new GetParameterDate();
 	
 	// -- 생성자
 	public HttpInputData(){
@@ -29,16 +30,19 @@ public class HttpInputData {
 		map.put("source", "news");
 	}
 	
+	public void setDate(){
+		getParameterDate.setWeeksAgoDate();
+		setStartDate(getParameterDate.getStartDate());
+		setEndDate(getParameterDate.getEndDate());
+	}
 	// 시작 날짜
-	public void setStartDate(){
-		// 날짜 계산해야함
-		map.put("startDate", "20180101");
+	public void setStartDate(String startDate){
+		map.put("startDate", startDate);
 	}
 	
 	// 종료 날짜
-	public void setEndDate(){
-		// 날짜 계산해야함
-		map.put("endDate", "20180110");
+	public void setEndDate(String endDate){
+		map.put("endDate", endDate);
 	}
 	
 	// 조회하고자 하는 주제어
@@ -85,7 +89,7 @@ public class HttpInputData {
 		map.put("categoryCode", value);
 	}
 	
-	// 분류 체계 코드 설정
+	// 분류 체계 코드 설정 (정치 시사, 사회 경제, 세계, 문화 생활, IT)
 	public void setCategoryList(Object value){
 		map.put("categoryList", value);
 	}

@@ -10,9 +10,6 @@
     
     <BODY>
     	<c:import url="news_menu.jsp" charEncoding="UTF-8"></c:import>
-	
-		<div class="topicWrapper">
-			<div>사회 경제 뉴스</div>
-		</div>
+		<c:import url="news_list.jsp" charEncoding="UTF-8"></c:import>
     </BODY>
 </HTML>

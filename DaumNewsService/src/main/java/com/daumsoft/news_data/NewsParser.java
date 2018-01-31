@@ -56,6 +56,8 @@ public class NewsParser{
 			return convertListAboutGetCategoryList(readLineBuilder.toString());
 		if(command.equals("GetKeywordDocuments"))
 			return convertListAboutGetKeywordDocuments(readLineBuilder.toString());
+		if(command.equals("GetTopKeywords"))
+			return convertListAboutGetTopKeywords(readLineBuilder.toString());
 		
 		// 임시
 		return convertListAboutGetKeywordDocuments(readLineBuilder.toString());
@@ -66,6 +68,7 @@ public class NewsParser{
 		return null;
 	}
 	
+	// -- 해당 키워드에 대한 문서 획득
 	// -- string 데이터를 list 컬렉션 객체로 변환
 	// -- 미확인 오퍼레이션과 관련된 경고 제거
 	@SuppressWarnings("unchecked")
@@ -92,6 +95,36 @@ public class NewsParser{
 		return convertList2Map(elementList);
 	}
 	
+	// -- 해당 분류체계에 대한 상위 키워드 획득
+	@SuppressWarnings("unchecked")
+	public Map[] convertListAboutGetTopKeywords(String line){
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		line = line.replaceAll("\\s", "");
+		line = line.substring(1, line.length()-1);
+		
+		try {
+			map = mapper.readValue(line, new TypeReference<Map<String, Object>>(){});
+		} 
+		catch (JsonParseException e) {
+			e.printStackTrace();
+		} 
+		catch (JsonMappingException e) {
+			e.printStackTrace();
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// [ GetTopKeywords ] 명령어
+		Map[]mapArray = new Map[1];
+		mapArray[0] = new HashMap<String, Object>();
+		mapArray[0].put("keyword", map.get("keyword"));
+		
+		return mapArray;
+	}
+	
 	// -- list 컬렉션 객체를 map[] 로 반환
 	@SuppressWarnings("unchecked")
 	public Map[] convertList2Map(List<Object> list){
@@ -106,7 +139,7 @@ public class NewsParser{
 			mapArray[index] = new HashMap<String, Object>();
 		
 		
-		// 맵 데이터로 캐스팅 이후 맵 배열 인덱스별로 키 밸류 초기화
+		// -- 맵 데이터로 캐스팅 이후 맵 배열 인덱스별로 키 밸류 초기화
 		for(int index = 0; index < size; index++){
 			mapData = (Map<String, Object>) list.get(index);
 			
@@ -115,7 +148,7 @@ public class NewsParser{
 			}
 		}
 		
-		// 해당 맵 데이터에서, documentDate 값 정리
+		// -- 해당 맵 데이터에서, documentDate 값 정리
 		for(int index = 0; index < size; index++){
 			
 			String[]dateList = new String[6];
@@ -130,28 +163,19 @@ public class NewsParser{
 			mapArray[index].put("parseWeekDay", dateList[3]);
 			mapArray[index].put("parseHour", dateList[4]);
 			mapArray[index].put("parseMinute", dateList[5]);
-			
-			dateList = null;
 		}
 		
-		// 해당 맵 데이터에서, url 경로 크롤링 >> 이미지 경로 획득
+		// -- 해당 맵 데이터에서, url 경로 크롤링 >> 이미지 경로 획득
 		for(int index = 0; index < size; index++){
 			String valueUrl = (String) mapArray[index].get("url");
 			mapArray[index].put("imageUrl", crawlingImplementJava(valueUrl));
 		}
 		
-		/**
-		 * ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-		 * imageUrl 이 null 인 경우,
-		 * 만들어놓은 이미지 URL 삽입
-		 * 
-		 * [ 보류 ]
-		 * ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-		 * **/
-
 		return mapArray;
 	}
 	
+	
+	// -- 날짜 시간 가독성 좋게 변환
 	public String[] getFormatDate(Object paramObject){
 		// 캐스팅
 		String documentDate = (String) paramObject;
