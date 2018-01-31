@@ -92,7 +92,7 @@ public class NewsDataImpl implements NewsData{
 		}
 		
 		// Map[] 반환
-		Map[] mapArray = newsParser.convertList2Map(newsParser.readAndParseData(bufferedReader, myCommand));
+		Map[] mapArray = newsParser.readAndParseData(bufferedReader, myCommand);
 		return mapArray;
 	}
 }

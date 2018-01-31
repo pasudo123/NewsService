@@ -37,7 +37,7 @@ public class HttpConnection {
 			e.printStackTrace();
 		}
 		
-		System.out.println("HttpConnection : " + url);
+//		System.out.println("HttpConnection : " + url);
 		this.urlBuilder = url;
 	}
 	

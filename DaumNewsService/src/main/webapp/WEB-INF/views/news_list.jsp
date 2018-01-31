@@ -26,7 +26,7 @@
 	               		<li>
 	                        <div class="contentWrapper">
 	                            <div class="imageWrapper">
-	
+	                                <img src="${keyworDocMap['imageUrl']}" />
 	                            </div>
 	                            <div class="textWrapper">	
 	                            	<!-- 30줄 넘어가면 글자 자동으로 생략 -->
@@ -36,8 +36,10 @@
 	                                		<!-- 도메인 객체에 바인딩 시키기 위함. -->
 	                                    	<form:hidden path="title" value="${keyworDocMap['title']}" />
 	                                    	<form:hidden path="content" value="${keyworDocMap['content']}" />
+	                                    	<form:hidden path="parseDate" value="${keyworDocMap['parseDate']}" />
 	                                    	<form:hidden path="sequence" value="${keyworDocMap['sequence']}" />
 	                                    	<form:hidden path="url" value="${keyworDocMap['url']}" />
+	                                    	<form:hidden path="imageUrl" value="${keyworDocMap['imageUrl']}" />
 	                                    	<form:hidden path="writerRealName" value="${keyworDocMap['writerRealName']}" />
 	                                    	<form:hidden path="documentDate" value="${keyworDocMap['documentDate']}" /> 
 <%-- 											<form:hidden path="index" value="${status.index}" /> --%>

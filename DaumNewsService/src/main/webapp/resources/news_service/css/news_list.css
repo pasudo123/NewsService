@@ -56,8 +56,38 @@ div.listWrapper ul li div.contentWrapper{
 div.listWrapper ul li div.imageWrapper{
     float:left;
     width:290px;
-    height:130px;
-    /* border:1px solid white; */
+    height:120px;
+    margin-left:5px;
+    margin-top:5px;
+    margin-bottom:5px;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+div.imageWrapper img{
+    /**
+    https://jonathannicol.com/blog/2014/06/16/centre-crop-thumbnails-with-css/
+    **/
+
+    width:100%;
+    height: auto; 
+    position: absolute;
+    left:50%;
+    top:50%;
+    -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+}
+
+div.imageWrapper img{
+    opacity: 0.6;
+    filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+
+div.imageWrapper img:hover{
+    opacity: 1.0;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
 }
 
 /**

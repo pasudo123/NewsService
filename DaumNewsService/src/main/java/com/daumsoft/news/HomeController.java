@@ -50,11 +50,7 @@ public class HomeController {
 		model.addAttribute("size", keywordDocumentsMap.length);
 		model.addAttribute("menu", "politics");
 		
-//		 도메인 객체 생성
-//		newsDocumentList = new NewsDocumentList[keywordDocumentsMap.length];
-//		for(int i = 0; i < newsDocumentList.length; i++)
-//			newsDocumentList[i] = new NewsDocumentList();
-		
+		// 도메인 객체
 		model.addAttribute("newsDocumentList", newsDocumentList);
 		
 		return "news_politics";
@@ -88,13 +84,16 @@ public class HomeController {
 	@RequestMapping(value="/news_content", method=RequestMethod.POST)
 	public String showNewsContent(@ModelAttribute("NewsDocumentList") NewsDocumentList newsDocumentList, Model model){
 		
-		System.out.println(newsDocumentList.toString());
 		model.addAttribute("title", newsDocumentList.getTitle());
 		model.addAttribute("content", newsDocumentList.getContent());
-		model.addAttribute("documentDate", newsDocumentList.getDocumentDate());
-		model.addAttribute("", newsDocumentList.getUrl());
+		model.addAttribute("imageUrl", newsDocumentList.getImageUrl());
+		model.addAttribute("parseDate", newsDocumentList.getParseDate());
 		model.addAttribute("writerRealName", newsDocumentList.getWriterRealName());
 		
+		System.out.println(">>>>>>>>\n" + newsDocumentList.getParseDate()[0]);
+		System.out.println(">>>>>>>>\n" + newsDocumentList.getParseDate()[1]);
+		System.out.println(">>>>>>>>\n" + newsDocumentList.getParseDate()[2]);
+		System.out.println(">>>>>>>>\n" + newsDocumentList.getParseDate()[3]);
 		return "news_content";
 	}
 }

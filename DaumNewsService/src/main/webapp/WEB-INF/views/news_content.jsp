@@ -15,11 +15,12 @@
             <div class="newsInfoWrapper">
                 <div class="infoNameWrapper">${writerRealName}</div>
                 <div class="infoTitleWrapper">${title}</div>
-                <div class="infoDateWrapper">2018년 1월 18일 목요일</div>
+                <hr>
+                <div class="infoDateWrapper">${parseDate[0]} ${parseDate[1]} ${parseDate[2]} ${parseDate[3]}</div>
             </div>
 
             <div class="newsFileWrapper">
-
+				<img src="${imageUrl}" />
             </div>
 
             <div class="newsDetailWrapper">
