@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.daumsoft.command.GetCategoryList;
 import com.daumsoft.command.GetKeywordDocuments;
+import com.daumsoft.command.GetTopAssocSentimentByPeriod;
 import com.daumsoft.command.GetTopKeywords;
 import com.daumsoft.command.HttpCommand;
 import com.daumsoft.command.HttpConnection;
@@ -114,15 +115,37 @@ public class NewsDataImpl implements NewsData{
 			httpInputData.setDate();
 		}
 		
-		setConnection();
+		if(command.equals("GetTopAssocSentimentByPeriod")){
+			httpCommand = new GetTopAssocSentimentByPeriod();
+			
+			// stack memory 에서만, 쓰이도록
+			HttpInputData stackHttpInputData = new HttpInputData();
+			
+			stackHttpInputData.setLanguage();
+			stackHttpInputData.setColorIssueSoruce();
+			stackHttpInputData.setColorIssueDate();
+			stackHttpInputData.setKeyword(keyword);
+			stackHttpInputData.setTopN(15);
+			stackHttpInputData.setPeriod();
+			
+			setConnection(stackHttpInputData);
+			return;
+		}
+		
+		setConnection(null);
 	}
 	
 	// -- 커넥션 설정
-	public void setConnection(){
+	public void setConnection(HttpInputData parameterHttpInputData){
 		if(this.httpConnection == null)
 			this.httpConnection = new HttpConnection();
 		
-		this.connection = httpCommand.getCommandConnection(httpConnection, httpInputData.getMap());
+		if(parameterHttpInputData == null){
+			this.connection = httpCommand.getCommandConnection(httpConnection, httpInputData.getMap());
+			return;
+		}
+		
+		this.connection = httpCommand.getCommandConnection(httpConnection, parameterHttpInputData.getMap());
 	}
 	
 	// -- 응답 데이터 확인

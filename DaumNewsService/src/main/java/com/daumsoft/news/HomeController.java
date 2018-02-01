@@ -25,6 +25,7 @@ public class HomeController {
 	private String topKeyword = null;
 	private NewsDocumentList newsDocumentList = new NewsDocumentList();
 	
+	private Map[] topAssiciateSentimentMap = null;
 	
 	// -- Home 메뉴 요청
 	@RequestMapping(value="/home")
@@ -144,7 +145,6 @@ public class HomeController {
 		keywordDocumentsMap = newsData.getResponseData();
 		model.addAttribute("documents", keywordDocumentsMap);
 		model.addAttribute("size", keywordDocumentsMap.length);
-		model.addAttribute("menu", "politics");
 
 		// 도메인 객체
 		model.addAttribute("newsDocumentList", newsDocumentList);
@@ -155,29 +155,52 @@ public class HomeController {
 	
 	// -- 사이드 메뉴에 대한 프로세스 수행
 	public String WorkAboutSideMenuBarProcess(Model model, String choiceMenu){
-		model.addAttribute("hello", "hi");
+
+		// 정치||시사
+		if(choiceMenu.equals("sidePolitics"))
+			newsData.setCommand("GetTopAssocSentimentByPeriod", "politics", "정치||시사");
 		
-		if(choiceMenu.equals("sidePolitics")){
-			// 정치||시사
+		// 사회||경제
+		if(choiceMenu.equals("sideSociaty"))
+			newsData.setCommand("GetTopAssocSentimentByPeriod", "sociaty", "사회||경제");
+		
+		// 세계||국제
+		if(choiceMenu.equals("sideGlobal"))
+			newsData.setCommand("GetTopAssocSentimentByPeriod", "global", "세계||국제");
+		
+		// 문화||생활
+		if(choiceMenu.equals("sideCulture"))
+			newsData.setCommand("GetTopAssocSentimentByPeriod", "culture", "문화||생활");
+		
+		// IT
+		if(choiceMenu.equals("sideIT"))
+			newsData.setCommand("GetTopAssocSentimentByPeriod", "IT", "컴퓨터");
+		
+		// 해당 사이드 메뉴에 대한 감성 키워드
+		topAssiciateSentimentMap = newsData.getResponseData();
+		
+		for(int i = 1; i <= 15; i++){
+			Map<String, Object> rankMap = (Map<String, Object>) topAssiciateSentimentMap[0].get("rank" + i);
+			model.addAttribute("rankMap" + i, rankMap);
 		}
 		
-		if(choiceMenu.equals("sideSociaty")){
-			// 사회||경제
-		}
+//		{label=깨끗하다, frequency=1906, score=362.03235, polarity=other}
+//		{label=도덕적, frequency=953, score=57.994762, polarity=other}
+//		{label=원활하다, frequency=480, score=75.04859, polarity=other}
+//		{label=역겨운, frequency=339, score=55.16494, polarity=other}
+//		{label=떠나다, frequency=305, score=53.31615, polarity=neutral}
+//		{label=대표적, frequency=297, score=11.512738, polarity=neutral}
+//		{label=똑같다, frequency=261, score=40.59972, polarity=neutral}
+//		{label=범죄, frequency=212, score=1.8735881, polarity=negative}
+//		{label=의혹, frequency=192, score=3.967096, polarity=negative}
+//		{label=좋은, frequency=168, score=21.975758, polarity=other}
+//		{label=정확한, frequency=164, score=24.677788, polarity=neutral}
+//		{label=의문, frequency=162, score=2.8649797, polarity=neutral}
+//		{label=안전하다, frequency=160, score=24.885527, polarity=other}
+//		{label=의문 있다, frequency=160, score=24.220907, polarity=neutral}
+//		{label=시도하다, frequency=148, score=23.390179, polarity=neutral}
 		
-		if(choiceMenu.equals("sideGlobal")){
-			// 세계||국제
-		}
-		
-		if(choiceMenu.equals("sideCulture")){
-			// 문화||생활
-		}
-		
-		if(choiceMenu.equals("sideIT")){
-			// IT
-		}
-		
-		// 해당 jsp 에 API 조회 결과를 삽입해야함...
+		// API 조회 결과와 함께 페이지 뷰 리턴
 		return "news_table";
 	}
 }

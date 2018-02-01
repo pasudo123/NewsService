@@ -33,6 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class NewsParser{
 	private List<Object> elementList = null;
+	private Map<String, Object> map = null;
 	
 	public NewsParser(){
 		elementList = new ArrayList<Object>();
@@ -58,6 +59,8 @@ public class NewsParser{
 			return convertListAboutGetKeywordDocuments(readLineBuilder.toString());
 		if(command.equals("GetTopKeywords"))
 			return convertListAboutGetTopKeywords(readLineBuilder.toString());
+		if(command.equals("GetTopAssocSentimentByPeriod"))
+			return convertListAboutGetTopAssocSentimentByPeriod(readLineBuilder.toString());
 		
 		// 임시
 		return convertListAboutGetKeywordDocuments(readLineBuilder.toString());
@@ -74,7 +77,7 @@ public class NewsParser{
 	@SuppressWarnings("unchecked")
 	public Map[] convertListAboutGetKeywordDocuments(String line){
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> map = new HashMap<String, Object>();
+		map = new HashMap<String, Object>();
 		
 		try {
 			map = mapper.readValue(line, new TypeReference<Map<String, Object>>(){});
@@ -99,7 +102,7 @@ public class NewsParser{
 	@SuppressWarnings("unchecked")
 	public Map[] convertListAboutGetTopKeywords(String line){
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> map = new HashMap<String, Object>();
+		map = new HashMap<String, Object>();
 		
 		line = line.replaceAll("\\s", "");
 		line = line.substring(1, line.length()-1);
@@ -121,6 +124,32 @@ public class NewsParser{
 		Map[]mapArray = new Map[1];
 		mapArray[0] = new HashMap<String, Object>();
 		mapArray[0].put("keyword", map.get("keyword"));
+		
+		return mapArray;
+	}
+	
+	public Map[] convertListAboutGetTopAssocSentimentByPeriod(String line){
+		ObjectMapper mapper = new ObjectMapper();
+		map = new HashMap<String, Object>();
+		
+		try {
+			map = mapper.readValue(line, new TypeReference<Map<String, Object>>(){});
+		} 
+		catch (JsonParseException e) {
+			e.printStackTrace();
+		} 
+		catch (JsonMappingException e) {
+			e.printStackTrace();
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		elementList = (List<Object>) map.get("rows");
+		map = (HashMap<String, Object>)elementList.get(0);
+		
+		Map[]mapArray = new Map[1];
+		mapArray[0] = map;
 		
 		return mapArray;
 	}

@@ -13,14 +13,14 @@ public class GetCategoryList implements HttpCommand{
 	 ***/
 	
 	// -- 해당 API 쿼리에 대한 기본 명령어
-	private static final String Command = "GetCategoryList";
+	private static final String COMMAND = "GetCategoryList";
 
 	@Override
 	public HttpURLConnection getCommandConnection(HttpConnection httpConnection, Map<String, Object> parameterMap) {
 		StringBuilder url = new StringBuilder(HttpCommand.BASE_URL);
 
 		// 커넥션 객체 설정
-		httpConnection.setConnection(url, GetCategoryList.Command, parameterMap);
+		httpConnection.setConnection(url, GetCategoryList.COMMAND, parameterMap);
 		
 		// 커넥션 객체 반환
 		return httpConnection.getHttpURLConnection();

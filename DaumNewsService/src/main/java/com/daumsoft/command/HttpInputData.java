@@ -30,11 +30,25 @@ public class HttpInputData {
 		map.put("source", "news");
 	}
 	
+	// 연관어 감성 키워드 : 매체 선택
+	public void setColorIssueSoruce(){
+		map.put("source", "twitter");
+	}
+	
+	// 날짜 설정
 	public void setDate(){
 		getParameterDate.setWeeksAgoDate();
 		setStartDate(getParameterDate.getStartDate());
 		setEndDate(getParameterDate.getEndDate());
 	}
+	
+	// 연관어 감성 키워드 : 시작 및 종료 날짜 설정 (최근날짜, 즉 끝나는 날짜로 설정)
+	public void setColorIssueDate(){
+		getParameterDate.setWeeksAgoDate();
+		setStartDate(getParameterDate.getColorIssueGetEndDate());
+		setEndDate(getParameterDate.getColorIssueGetEndDate());
+	}
+	
 	// 시작 날짜
 	public void setStartDate(String startDate){
 		map.put("startDate", startDate);
@@ -99,5 +113,11 @@ public class HttpInputData {
 		int topN = (Integer)value;
 		
 		map.put("topN", topN);
+	}
+	
+	// 출력 주기 설정
+	public void setPeriod(){
+		// 일별로만 보여주기 때문에 0
+		map.put("period", 0);
 	}
 }
