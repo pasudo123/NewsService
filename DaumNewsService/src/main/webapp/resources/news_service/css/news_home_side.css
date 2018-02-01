@@ -1,0 +1,105 @@
+@CHARSET "UTF-8";
+
+/**
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+         날씨 관련 
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+**/
+div.weatherWrapper {
+	margin: 0 auto;
+	margin-top: 60px;
+	width: 800px;
+	height: 50px;
+	border: 1px solid red;
+}
+
+/**
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+       감성 뉴스 관련
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+**/
+div.sentimentWrapper {
+	margin: 0 auto;
+	margin-top: 40px;
+	width: 800px;
+	height: 430px;
+	/* border:1px solid blue; */
+}
+
+div.sentimentWrapper div.homeTitle {
+	margin: 0 auto;
+	text-align: center;
+	font-size: 24px;
+}
+
+div.sentimentWrapper div.menuBoxWrapper {
+	margin: 0 auto;
+	margin-top: 20px;
+	width: 800px;
+	height: 380px;
+	border: 2px solid #3b3838;
+}
+
+/**
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+       감성 뉴스 관련
+       - 사이드 메뉴바
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+**/
+div.sentimentWrapper div.menuBox-menuWrapper {
+	width: 200px;
+	height: 380px;
+	float: left;
+}
+
+div.menuBox-menuWrapper ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	width: 200px;
+	height: 380px;
+	text-align: center;
+}
+
+div.menuBox-menuWrapper ul li {
+	width: 200px;
+	height: 20%;
+	/**
+    height = 380 / 59(5개 메뉴) = 76px
+    **/
+	display: table;
+}
+
+div.menuBox-menuWrapper ul li div {
+	width: 200px;
+	height: 75px;
+	border-right: 2px solid #3b3838;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+/**
+리스트 가운데 경계선 및 hover 내용
+건드리지 않아도 됨
+**/
+div.menuBox-menuWrapper ul li:nth-of-type(2) {
+	border-top: 1px solid #3b3838;
+	border-bottom: 1px solid #3b3838;
+}
+
+div.menuBox-menuWrapper ul li:nth-of-type(4) {
+	border-top: 1px solid #3b3838;
+	border-bottom: 1px solid #3b3838;
+}
+
+div.menuBox-menuWrapper ul li div:hover {
+	background-color: rgb(86, 102, 97);
+	color: whitesmoke;
+	cursor: pointer;
+}

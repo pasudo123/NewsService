@@ -46,7 +46,7 @@ public class HomeController {
 		
 		// -- 정치에 대한 상위 키워드 얻기 ( 1개 )
 		newsData.setCommand("GetTopKeywords", "politics", null);
-		model = modelWorkAboutMenuProcess(model);
+		model = WorkAboutMainMenuProcess(model);
 		
 		return "news_politics";
 	}
@@ -58,7 +58,7 @@ public class HomeController {
 		
 		// -- 사회 경제에 대한 상위 키워드 얻기 ( 1개 )
 		newsData.setCommand("GetTopKeywords", "sociaty", null);
-		model = modelWorkAboutMenuProcess(model);
+		model = WorkAboutMainMenuProcess(model);
 				
 		return "news_sociaty";
 	}
@@ -70,7 +70,7 @@ public class HomeController {
 		
 		// -- 세계에 대한 상위 키워드 얻기 ( 1개 )
 		newsData.setCommand("GetTopKeywords", "global", null);
-		model = modelWorkAboutMenuProcess(model);
+		model = WorkAboutMainMenuProcess(model);
 				
 		return "news_global";
 	}
@@ -82,7 +82,7 @@ public class HomeController {
 		
 		// -- 문화 생활에 대한 상위 키워드 얻기 ( 1개 )
 		newsData.setCommand("GetTopKeywords", "culture", null);
-		model = modelWorkAboutMenuProcess(model);
+		model = WorkAboutMainMenuProcess(model);
 		
 		return "news_culture";
 	}
@@ -94,7 +94,7 @@ public class HomeController {
 		
 		// -- IT에 대한 상위 키워드 얻기 ( 1개 )
 		newsData.setCommand("GetTopKeywords", "IT", null);
-		model = modelWorkAboutMenuProcess(model);
+		model = WorkAboutMainMenuProcess(model);
 		
 		return "news_IT";
 	}
@@ -122,8 +122,18 @@ public class HomeController {
 	}
 	
 	
-	// -- 모델 객체에 대한 반복된 일처리 일괄 수행
-	public Model modelWorkAboutMenuProcess(Model model){
+	// -- 사이드 메뉴 감성 이슈 선택
+	@RequestMapping(value="/viewForSentiment", method=RequestMethod.POST)
+	public String showSentimentTable(Model model, HttpServletRequest request){
+		
+		String menu = request.getParameter("menu");
+		
+		return WorkAboutSideMenuBarProcess(model, menu);
+	}
+	
+	
+	// -- 모델 객체에 대한 반복된 프로세스 일괄 수행
+	public Model WorkAboutMainMenuProcess(Model model){
 		
 		topKeyword = (String) newsData.getResponseData()[0].get("keyword");
 
@@ -140,5 +150,34 @@ public class HomeController {
 		model.addAttribute("newsDocumentList", newsDocumentList);
 		
 		return model;
+	}
+	
+	
+	// -- 사이드 메뉴에 대한 프로세스 수행
+	public String WorkAboutSideMenuBarProcess(Model model, String choiceMenu){
+		model.addAttribute("hello", "hi");
+		
+		if(choiceMenu.equals("sidePolitics")){
+			// 정치||시사
+		}
+		
+		if(choiceMenu.equals("sideSociaty")){
+			// 사회||경제
+		}
+		
+		if(choiceMenu.equals("sideGlobal")){
+			// 세계||국제
+		}
+		
+		if(choiceMenu.equals("sideCulture")){
+			// 문화||생활
+		}
+		
+		if(choiceMenu.equals("sideIT")){
+			// IT
+		}
+		
+		// 해당 jsp 에 API 조회 결과를 삽입해야함...
+		return "news_table";
 	}
 }

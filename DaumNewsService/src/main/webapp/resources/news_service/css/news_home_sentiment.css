@@ -1,0 +1,83 @@
+@CHARSET "UTF-8";
+
+
+/**
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+       감성 뉴스 관련 1
+       - 오른쪽 이미지
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+**/
+div.sentimentWrapper > div.menuBoxWrapper > div.menuBox-imageWrapper{
+    width:595px;
+    height:380px;
+    
+    /** div.menuBox-menuWrapper 의 float 속성으로 인해, 오른쪽 이동 **/
+    margin-left:202px;
+    position:relative;
+}
+
+div.menuBox-imageWrapper div.tableWrapper{
+    position: absolute;
+    width:595px;
+    height:380px;
+}
+
+table{
+    color:white;
+    width:100%;
+    height:100%;
+    text-align: center;
+    
+}
+
+table tr td.issueText{
+    width:20%;
+    height:33.33%;
+    position: relative;
+}
+
+img.blockImage{
+    width:100%;
+    height:auto;
+    opacity: 1;
+    display: block;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+div.container{
+    width:80%;
+    color:black;
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top:65%;
+    left:10%;
+    cursor: pointer;
+}
+
+div.container div.text{
+    font-size: 14px;
+    padding:5px 10px 5px 10px;
+    background-color:gainsboro;
+    border-radius: 10px;
+}
+
+
+/**
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+       감성 뉴스 관련 2
+       - 마우스 효과
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+**/
+td.issueText:hover img.blockImage{
+    opacity: 0.3;
+}
+
+td.issueText:hover div.container{
+    opacity: 1;
+}
