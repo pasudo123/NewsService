@@ -12,7 +12,6 @@ div.weatherWrapper {
 	margin-top: 60px;
 	width: 800px;
 	height: 50px;
-	border: 1px solid red;
 }
 
 /**
@@ -28,6 +27,7 @@ div.sentimentWrapper {
 	width: 800px;
 	height: 430px;
 	/* border:1px solid blue; */
+	padding-bottom:100px;
 }
 
 div.sentimentWrapper div.homeTitle {
