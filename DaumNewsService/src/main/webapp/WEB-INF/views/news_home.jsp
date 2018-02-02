@@ -36,9 +36,9 @@ $(document).ready(function(){
 	<c:import url="news_list.jsp" charEncoding="UTF-8"></c:import>
 
 	<!-- 날씨 보는 공간 -->
-	<div class="weatherWrapper">
-	
-	</div>
+<!-- 	<div class="weatherWrapper"> -->
+
+<!-- 	</div> -->
 
 	<div class="sentimentWrapper">
 		<div class="homeTitle">

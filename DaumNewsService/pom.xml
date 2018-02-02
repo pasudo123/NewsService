@@ -110,6 +110,7 @@
 			<version>1.2</version>
 		</dependency>
 	
+	
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -118,6 +119,7 @@
 			<scope>test</scope>
 		</dependency>
 		
+		
 		<!-- Jackson JSON Java Parser API -->
 		<!-- JSON 파싱 이용하기 위한 라이브러리 -->
 		<dependency>
@@ -125,6 +127,7 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.2.3</version>
 		</dependency>
+		
 		
 		<!-- 
 		네트워크 전용 라이브러리
@@ -155,7 +158,20 @@
 		    <artifactId>jsoup</artifactId>
 		    <version>1.8.3</version>
 		</dependency>
-		<!-- 네트워크 전용 라이브러리 -->
+		
+		
+		<!-- JSON In Java 자바에서 json 이용 -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20160810</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
 		 
 	</dependencies>
     <build>
