@@ -4,37 +4,70 @@
 /**
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
+       감성 뉴스 관련
+       - 애니메이션 효과
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+**/
+ul.sideParentMenu{
+    /** 애니메이션 효과 적용시키기 위함**/
+    position: relative;
+    /* left:-200px; */
+}
+
+ul.sideChildMenu{
+    position: relative;
+    opacity:0;
+    top:-380px;
+    left:198px;
+    border-left:2px solid #3b3838;
+}
+
+ul.sideChildMenu li:nth-of-type(4){
+    height:40%;
+    color:#03cf16;
+}
+
+
+/**
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
        감성 뉴스 관련 1
        - 오른쪽 이미지
 
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 **/
 div.sentimentWrapper > div.menuBoxWrapper > div.menuBox-imageWrapper{
-    width:595px;
+/*     width:595px; */
+    width:780px;
     height:380px;
     
     /** div.menuBox-menuWrapper 의 float 속성으로 인해, 오른쪽 이동 **/
     margin-left:202px;
     position:relative;
+    
+    /** animate 효과를 생동감 있게 하기위해 가장 앞에 있도록 설정 **/
+    z-index:20;
 }
 
 div.menuBox-imageWrapper div.tableWrapper{
     position: absolute;
-    width:595px;
+/*     width:595px; */
+    width:780px;
     height:380px;
 }
 
 table{
-    color:white;
     width:100%;
     height:100%;
     text-align: center;
+    background: white;
     
 }
 
 table tr td.issueText{
-    width:20%;
-    height:33.33%;
+    width:4%;
+    height:auto;
     position: relative;
 }
 
