@@ -27,6 +27,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -59,13 +60,15 @@ public class NewsParser{
 			return convertListAboutGetKeywordDocuments(readLineBuilder.toString());
 		if(command.equals("GetTopKeywords"))
 			return convertListAboutGetTopKeywords(readLineBuilder.toString());
+		if(command.equals("GetTopKeywords10"))
+			return convertListAboutGetTopKeywords10(readLineBuilder.toString());
 		if(command.equals("GetTopAssocSentimentByPeriod"))
-			return convertListAboutGetTopAssocSentimentByPeriod(readLineBuilder.toString());
+			return convertListAboutGetTopAssocSentimentByPeriod(readLineBuilder.toString(), 1);
+		if(command.equals("GetTopAssocSentimentByPeriod10"))
+			return convertListAboutGetTopAssocSentimentByPeriod(readLineBuilder.toString(), 10);
 		
-		// 임시
-		return convertListAboutGetKeywordDocuments(readLineBuilder.toString());
+		return null;
 	}
-	
 	
 	public Map[] convertListAboutGetCategoryList(String line){
 		return null;
@@ -74,23 +77,9 @@ public class NewsParser{
 	// -- 해당 키워드에 대한 문서 획득
 	// -- string 데이터를 list 컬렉션 객체로 변환
 	// -- 미확인 오퍼레이션과 관련된 경고 제거
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Map[] convertListAboutGetKeywordDocuments(String line){
-		ObjectMapper mapper = new ObjectMapper();
-		map = new HashMap<String, Object>();
-		
-		try {
-			map = mapper.readValue(line, new TypeReference<Map<String, Object>>(){});
-		} 
-		catch (JsonParseException e) {
-			e.printStackTrace();
-		} 
-		catch (JsonMappingException e) {
-			e.printStackTrace();
-		} 
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		map = (Map<String, Object>)this.setObjectMapper(line, 1);
 		
 		// [ GetKeywordDocuments ] 명령어
 		elementList = (List<Object>) map.get("documentList");
@@ -99,27 +88,13 @@ public class NewsParser{
 	}
 	
 	// -- 해당 분류체계에 대한 상위 키워드 획득
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Map[] convertListAboutGetTopKeywords(String line){
-		ObjectMapper mapper = new ObjectMapper();
-		map = new HashMap<String, Object>();
-		
 		line = line.replaceAll("\\s", "");
 		line = line.substring(1, line.length()-1);
 		
-		try {
-			map = mapper.readValue(line, new TypeReference<Map<String, Object>>(){});
-		} 
-		catch (JsonParseException e) {
-			e.printStackTrace();
-		} 
-		catch (JsonMappingException e) {
-			e.printStackTrace();
-		} 
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		map = (Map<String, Object>)this.setObjectMapper(line, 1);
+
 		// [ GetTopKeywords ] 명령어
 		Map[]mapArray = new Map[1];
 		mapArray[0] = new HashMap<String, Object>();
@@ -128,22 +103,23 @@ public class NewsParser{
 		return mapArray;
 	}
 	
-	public Map[] convertListAboutGetTopAssocSentimentByPeriod(String line){
-		ObjectMapper mapper = new ObjectMapper();
-		map = new HashMap<String, Object>();
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public Map[] convertListAboutGetTopKeywords10(String line){
+		line = line.replaceAll("\\s", "");
 		
-		try {
-			map = mapper.readValue(line, new TypeReference<Map<String, Object>>(){});
-		} 
-		catch (JsonParseException e) {
-			e.printStackTrace();
-		} 
-		catch (JsonMappingException e) {
-			e.printStackTrace();
-		} 
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		// [ GetTopKeywords10 ] 명령어
+		Map[]mapArray = new Map[1];
+		mapArray[0] = new HashMap<String, List<NewsTopKeywords>>();
+		
+		List<NewsTopKeywords> list = (List<NewsTopKeywords>)this.setObjectMapper(line, 10);
+		mapArray[0].put("topKeywords", list);
+		
+		return mapArray;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public Map[] convertListAboutGetTopAssocSentimentByPeriod(String line, int size){
+		map = (Map<String, Object>)this.setObjectMapper(line, size);
 		
 		elementList = (List<Object>) map.get("rows");
 		map = (HashMap<String, Object>)elementList.get(0);
@@ -154,8 +130,32 @@ public class NewsParser{
 		return mapArray;
 	}
 	
+	public Object setObjectMapper(String line, int number){
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try{
+			if(number == 10){
+				mapper.configure(Feature.AUTO_CLOSE_SOURCE, true);
+				return mapper.readValue(line, new TypeReference<List<NewsTopKeywords>>(){});
+			}
+			
+			return mapper.readValue(line, new TypeReference<Map<String, Object>>(){});
+		}
+		catch (JsonParseException e) {
+			e.printStackTrace();
+		} 
+		catch (JsonMappingException e) {
+			e.printStackTrace();
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
 	// -- list 컬렉션 객체를 map[] 로 반환
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Map[] convertList2Map(List<Object> list){
 		
 		// 맵 데이터, 맵 배열

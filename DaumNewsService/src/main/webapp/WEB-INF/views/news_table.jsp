@@ -10,11 +10,20 @@
     	
     	<SCRIPT>
     	$(document).ready(function(){
-    		$('td').each(function(index){
+    		$('td.issueText').each(function(index){
+//     			${rankMap13.get('frequency')}&${rankMap13.get('polarity')}
+
     			var sentiment = $(this).find('img').attr('id');
+    			
+    			if(sentiment == "&"){
+    				$(this).find('img').attr("src","<c:url value='/resources/image/none_200.png' />");
+    				$(this).find('input').attr("value","null");
+    				return;
+    			}
+    			
     			var frequency = Number(sentiment.split("&")[0]);
     			var polarity = sentiment.split("&")[1];
-    			
+
     			if(polarity == "negative")
     				polarity = "ne";
     			if(polarity == "neutral")
@@ -30,127 +39,70 @@
    					$(this).find('img').attr("src","<c:url value='/resources/image/" + polarity + "_800.png' />");
    				if(frequency >= 600 && frequency < 800)
    					$(this).find('img').attr("src","<c:url value='/resources/image/" + polarity + "_600.png' />");
-   				if(frequency > 400 && frequency < 600)
+   				if(frequency >= 400 && frequency < 600)
    					$(this).find('img').attr("src","<c:url value='/resources/image/" + polarity + "_400.png' />");
-   				else
-					$(this).find('img').attr("src","<c:url value='/resources/image/" + polarity + "_200.png' />");
+   				if(frequency >= 0 && frequency < 400)
+   					$(this).find('img').attr("src","<c:url value='/resources/image/" + polarity + "_200.png' />");
+    		});
+    		
+    		$('td.issueText').hover(function(){
+   				var label = $(this).find('input').val();
+
+   				if(label == "null"){
+   					$('div.textContainer').find('div').text("N O N E");
+   					return;
+   				}
+   				
+   				$('div.textContainer').find('div').text(label);
     		});
     	});
     	</SCRIPT>
     </HEAD>
 
     <BODY>
-		<div class="tableWrapper politicsContainer">
+		<div class="tableWrapper">
+			<!-- 가로 15 / 세로 7 = 15 * 7 = 105블럭 -->
 			<table>
+				<c:forEach varStatus="status" begin="1" end="6" step="1">
 				<tr>
-					<td id="1" class="issueText">
-						<img id="${rankMap13.get('frequency')}&${rankMap13.get('polarity')}" class="blockImage" src=""  />
+					<c:forEach varStatus="innerStatus" begin="${(status.index-1)*15 + 1}" end="${status.index*15}" step="1">
+					<td class="issueText">
+						<img id="${sentiment[innerStatus.index].getFrequency()}&${sentiment[innerStatus.index].getPolarity()}" class="blockImage" src="" />
+						<input type="hidden" value="${sentiment[innerStatus.index].getLabel()}" />
 						<div class="container">
-							<div class="text">${rankMap13.get('label')}</div>
-						</div>
+<!-- 							<div class="text"></div> -->
+						</div>	
 					</td>
-		
-					<td id="2" class="issueText">
-						<img id="${rankMap7.get('frequency')}&${rankMap7.get('polarity')}" class="blockImage" src="" />
-						<div class="container">
-							<div class="text">${rankMap7.get('label')}</div>
-						</div>
-					</td>
-		
-					<td id="3" class="issueText">
-						<img id="${rankMap5.get('frequency')}&${rankMap5.get('polarity')}" class="blockImage" src="" />
-						<div class="container">
-							<div class="text">${rankMap5.get('label')}</div>
-						</div>
-					</td>
-			
-					<td id="4" class="issueText">
-						<img id="${rankMap9.get('frequency')}&${rankMap9.get('polarity')}" class="blockImage" src="" />
-						<div class="container">
-							<div class="text">${rankMap9.get('label')}</div>
-						</div>
-					</td>
-			
-					<td id="5" class="issueText">
-						<img id="${rankMap15.get('frequency')}&${rankMap15.get('polarity')}" class="blockImage" src="" />
-						<div class="container">
-							<div class="text">${rankMap15.get('label')}</div>
-						</div>
-					</td>
+					</c:forEach>
 				</tr>
-		
+				</c:forEach>
+				
 				<tr>
-					<td id="6" class="issueText">
-						<img id="${rankMap11.get('frequency')}&${rankMap11.get('polarity')}" class="blockImage" src="" />
+					<c:forEach varStatus="innerStatus" begin="91" end="95" step="1">
+					<td class="issueText">
+						<img id="${sentiment[innerStatus.index].getFrequency()}&${sentiment[innerStatus.index].getPolarity()}" class="blockImage" src="" />
+						<input type="hidden" value="" />
 						<div class="container">
-							<div class="text">${rankMap11.get('label')}</div>
-						</div>
+<!-- 							<div class="text"></div> -->
+						</div>	
 					</td>
-		
-					<td id="7" class="issueText">
-						<img id="${rankMap2.get('frequency')}&${rankMap2.get('polarity')}" class="blockImage" src="" />
+					</c:forEach>
+					
+					<td colspan="5">
+                        <div class="textContainer">
+                            <div class="text"></div>
+                        </div>
+                    </td>
+                    
+                    <c:forEach varStatus="innerStatus" begin="96" end="100" step="1">
+					<td class="issueText">
+						<img id="${sentiment[innerStatus.index].getFrequency()}&${sentiment[innerStatus.index].getPolarity()}" class="blockImage" src="" />
+						<input type="hidden" value="" />
 						<div class="container">
-							<div class="text">${rankMap2.get('label')}</div>
-						</div>
+<!-- 							<div class="text"></div> -->
+						</div>	
 					</td>
-		
-					<td id="8" class="issueText">
-						<img id="${rankMap1.get('frequency')}&${rankMap1.get('polarity')}" class="blockImage" src="" /> 
-						 <div class="container">
-							<div class="text">${rankMap1.get('label')}</div>
-						</div>
-					</td>
-		
-					<td id="9" class="issueText">
-						<img id="${rankMap3.get('frequency')}&${rankMap3.get('polarity')}" class="blockImage" src="" />
-						<div class="container">
-							<div class="text">${rankMap3.get('label')}</div>
-						</div>
-					</td>
-		
-					<td id="10" class="issueText">
-						<img id="${rankMap10.get('frequency')}&${rankMap10.get('polarity')}" class="blockImage" src="" />
-						<div class="container">
-							<div class="text">${rankMap10.get('label')}</div>
-						</div>
-					</td>
-				</tr>
-		
-				<tr>
-					<td id="11" class="issueText">
-						<img id="${rankMap14.get('frequency')}&${rankMap14.get('polarity')}" class="blockImage" src="" />
-						<div class="container">
-							<div class="text">${rankMap14.get('label')}</div>
-						</div>
-					</td>
-		
-					<td id="12" class="issueText">
-						<img id="${rankMap6.get('frequency')}&${rankMap6.get('polarity')}" class="blockImage" src="" />
-						<div class="container">
-							<div class="text">${rankMap6.get('label')}</div>
-						</div>
-					</td>
-			
-					<td id="13" class="issueText">
-						<img id="${rankMap4.get('frequency')}&${rankMap4.get('polarity')}" class="blockImage" src="" />
-						<div class="container">
-							<div class="text">${rankMap4.get('label')}</div>
-						</div>
-					</td>
-		
-					<td id="14" class="issueText">
-						<img id="${rankMap8.get('frequency')}&${rankMap8.get('polarity')}" class="blockImage" src="" />
-						<div class="container">
-							<div class="text">${rankMap8.get('label')}</div>
-						</div>
-					</td>
-		
-					<td id="15" class="issueText">
-						<img id="${rankMap12.get('frequency')}&${rankMap12.get('polarity')}" class="blockImage" src="" />
-						<div class="container">
-							<div class="text">${rankMap12.get('label')}</div>
-						</div>
-					</td>
+					</c:forEach>
 				</tr>
 			</table>
 		</div>

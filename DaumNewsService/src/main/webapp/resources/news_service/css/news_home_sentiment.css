@@ -1,34 +1,5 @@
 @CHARSET "UTF-8";
 
-
-/**
-ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-
-       감성 뉴스 관련
-       - 애니메이션 효과
-
-ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-**/
-ul.sideParentMenu{
-    /** 애니메이션 효과 적용시키기 위함**/
-    position: relative;
-    /* left:-200px; */
-}
-
-ul.sideChildMenu{
-    position: relative;
-    opacity:0;
-    top:-380px;
-    left:198px;
-    border-left:2px solid #3b3838;
-}
-
-ul.sideChildMenu li:nth-of-type(4){
-    height:40%;
-    color:#03cf16;
-}
-
-
 /**
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
@@ -62,6 +33,8 @@ table{
     height:100%;
     text-align: center;
     background: white;
+    left: -2px;
+    position: relative;
     
 }
 
@@ -99,7 +72,9 @@ div.container div.text{
     border-radius: 10px;
 }
 
-
+div.textContainer{
+	font-size:18px;
+}
 /**
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
@@ -109,7 +84,8 @@ div.container div.text{
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 **/
 td.issueText:hover img.blockImage{
-    opacity: 0.3;
+    opacity: 0.2;
+    cursor: pointer;
 }
 
 td.issueText:hover div.container{

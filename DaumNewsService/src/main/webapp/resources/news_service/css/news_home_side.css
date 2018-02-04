@@ -104,3 +104,30 @@ div.menuBox-menuWrapper ul li div:hover {
 	color: whitesmoke;
 	cursor: pointer;
 }
+
+/**
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+       감성 뉴스 관련
+       - 애니메이션 효과
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+**/
+ul.sideParentMenu{
+    /** 애니메이션 효과 적용시키기 위함**/
+    position: relative;
+    /* left:-200px; */
+}
+
+ul.sideChildMenu{
+    position: relative;
+    opacity:0;
+    top:-380px;
+    left:198px;
+    border-left:2px solid #3b3838;
+}
+
+ul.sideChildMenu li:nth-of-type(4){
+    height:40%;
+    color:#03cf16;
+}

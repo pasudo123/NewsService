@@ -120,4 +120,9 @@ public class HttpInputData {
 		// 일별로만 보여주기 때문에 0
 		map.put("period", 0);
 	}
+	
+	// 맵 데이터 삭제
+	public void clear(){
+		map.clear();
+	}
 }

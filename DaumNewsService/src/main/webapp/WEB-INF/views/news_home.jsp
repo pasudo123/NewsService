@@ -11,29 +11,41 @@
 <script type="text/javascript" src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"></script>
 <SCRIPT>
 	$(document).ready(function() {
-		// ajax 로 화면 나타내기.
-// 		$('div.sideButton').click(function() {
-// 			// id값 속성으로 받기.
-// 			var id = $(this).attr('id');
-
-// 			$.ajax({
-// 				type : 'post',
-// 				url : './viewForSentiment',
-// 				data : {
-// 					"menu" : id
-// 				},
-
-// 				success : function(data) {
-// 					$("div.menuBox-imageWrapper").html(data)
-// 				}
-// 			});
-// 		});
-
+		
+		// -- 애니메이션 효과 밀기 당기기 -- 
 		$('div.p_sideButton').click(function() {
-			$('div#sideOne').text('변경 1');
-			$('div#sideTwo').text('변경 2');
-			$('div#sideThree').text('변경 3')
-
+			var highLevel = $(this).attr('id');
+			
+			if(highLevel == 'sidePolitics'){
+				$('div#sideOne').text('정부');
+				$('div#sideTwo').text('단체');
+				$('div#sideThree').text('법 / 제도')
+			}
+			
+			if(highLevel == 'sideSociaty'){
+				$('div#sideOne').text('경제');
+				$('div#sideTwo').text('세금');
+				$('div#sideThree').text('사건 / 사고')
+			}
+			
+			if(highLevel == 'sideGlobal'){
+				$('div#sideOne').text('대륙');
+				$('div#sideTwo').text('기후 / 기상');
+				$('div#sideThree').text('천체')
+			}
+			
+			if(highLevel == 'sideCulture'){
+				$('div#sideOne').text('축제 / 행사');
+				$('div#sideTwo').text('연극');
+				$('div#sideThree').text('티비')
+			}
+			
+			if(highLevel == 'sideIT'){
+				$('div#sideOne').text('SW - 품목');
+				$('div#sideTwo').text('SW - 제품');
+				$('div#sideThree').text('SW - 브랜드');
+			}
+			
 			$('ul#sideParentMenuId').animate({
 				opacity : 0
 			}, 350);
@@ -43,7 +55,6 @@
 				opacity : 1
 			}, 350);
 		});
-
 		$('div#sideBack').click(function() {
 			$('ul#sideChildMenuId').animate({
 				left : 198,
@@ -53,7 +64,22 @@
 			$('ul#sideParentMenuId').animate({
 				opacity : 1
 			}, 350)
+		});
+		
+		// ajax 로 화면 나타내기.
+		$('div.c_sideButton').click(function() {
+			var lowLevel = $(this).text();
+			$.ajax({
+				type : 'post',
+				url : './viewForSentiment',
+				data : {
+					"menu" : lowLevel
+				},
 
+				success : function(data) {
+					$("div.menuBox-imageWrapper").html(data)
+				}
+			});
 		});
 	});
 </SCRIPT>
@@ -87,30 +113,11 @@
                      <li><div class="c_sideButton" id="sideOne">분류 1</div></li>
                      <li><div class="c_sideButton" id="sideTwo">분류 2</div></li>
                      <li><div class="c_sideButton" id="sideThree">분류 3</div></li>
-                     <li><div class="c_sideButton" id="sideBack">뒤로가기</div></li>
+                     <li><div id="sideBack">뒤로가기</div></li>
                  </ul>
 			</div>
 
 			<div class="menuBox-imageWrapper">
-<%-- 				<c:if test="${sideMenu == 'politics'}" > --%>
-<%-- 					<c:import url="news_table_politics.jsp" charEncoding="UTF-8"></c:import> --%>
-<%-- 				</c:if> --%>
-				
-<%-- 				<c:if test="${sideMenu == 'sociaty'}" > --%>
-<%-- 					<c:import url="news_table_sociaty.jsp" charEncoding="UTF-8"></c:import> --%>
-<%-- 				</c:if> --%>
-				
-<%-- 				<c:if test="${sideMenu == 'global'}" > --%>
-<%-- 					<c:import url="news_table_global.jsp" charEncoding="UTF-8"></c:import> --%>
-<%-- 				</c:if> --%>
-				
-<%-- 				<c:if test="${sideMenu == 'culture'}" > --%>
-<%-- 					<c:import url="news_table_culture.jsp" charEncoding="UTF-8"></c:import> --%>
-<%-- 				</c:if> --%>
-				
-<%-- 				<c:if test="${sideMenu == 'IT'}" > --%>
-<%-- 					<c:import url="news_table_IT.jsp" charEncoding="UTF-8"></c:import> --%>
-<%-- 				</c:if> --%>
 			</div>
 		</div>
 	</div>

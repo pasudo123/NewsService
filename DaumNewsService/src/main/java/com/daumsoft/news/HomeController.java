@@ -1,5 +1,9 @@
 package com.daumsoft.news;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +14,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.daumsoft.news_data.NewsAssocSentiment;
 import com.daumsoft.news_data.NewsDataImpl;
 import com.daumsoft.news_data.NewsDocumentList;
+import com.daumsoft.news_data.NewsTopKeywords;
 
 /**
  * Handles requests for the application home page.
@@ -22,21 +29,16 @@ public class HomeController {
 	
 	private NewsDataImpl newsData = new NewsDataImpl();
 	private Map[] keywordDocumentsMap = null;
+	private Map[] topAssociateSentimentMap = null;
+	
 	private String topKeyword = null;
 	private NewsDocumentList newsDocumentList = new NewsDocumentList();
 	
-	private Map[] topAssiciateSentimentMap = null;
-	
+	private List<NewsAssocSentiment> sentimentList = new ArrayList<NewsAssocSentiment>();
+	private SideController sideController = new SideController();
 	// -- Home 메뉴 요청
 	@RequestMapping(value="/home")
 	public String newsMenuCallHome(Model model){
-//		newsData.setCommand("GetKeywordDocuments");
-//		
-//		// map[] 반환
-//		keywordDocumentsMap = newsData.getResponseData();
-//		model.addAttribute("documents", keywordDocumentsMap);
-//		model.addAttribute("menu", "home");
-		
 		return "news_home";
 	}
 	
@@ -127,9 +129,13 @@ public class HomeController {
 	@RequestMapping(value="/viewForSentiment", method=RequestMethod.POST)
 	public String showSentimentTable(Model model, HttpServletRequest request){
 		
+		// -- GetTopKeywords 로 탑 키워드 10개 추출
 		String menu = request.getParameter("menu");
+		String[] menuAndCateogryAndCode = sideController.getClassification(menu);
 		
-		return WorkAboutSideMenuBarProcess(model, menu);
+		model = WorkAboutSideMenuBarProcess(model, menuAndCateogryAndCode);
+		
+		return "news_table";
 	}
 	
 	
@@ -154,53 +160,53 @@ public class HomeController {
 	
 	
 	// -- 사이드 메뉴에 대한 프로세스 수행
-	public String WorkAboutSideMenuBarProcess(Model model, String choiceMenu){
-
-		// 정치||시사
-		if(choiceMenu.equals("sidePolitics"))
-			newsData.setCommand("GetTopAssocSentimentByPeriod", "politics", "정치||시사");
+	public Model WorkAboutSideMenuBarProcess(Model model, String[]menuAndCateogryAndCode){
+//		System.out.println(Arrays.toString(menuAndCateogryAndCode));
 		
-		// 사회||경제
-		if(choiceMenu.equals("sideSociaty"))
-			newsData.setCommand("GetTopAssocSentimentByPeriod", "sociaty", "사회||경제");
+		newsData.setCommand(menuAndCateogryAndCode, 1, null);
+		@SuppressWarnings("unchecked")
+		List<NewsTopKeywords> list = (List<NewsTopKeywords>) newsData.getResponseData(10)[0].get("topKeywords");
 		
-		// 세계||국제
-		if(choiceMenu.equals("sideGlobal"))
-			newsData.setCommand("GetTopAssocSentimentByPeriod", "global", "세계||국제");
+		// 한번 완전히 클리어하고 새롭게 시작
+		// 그렇게 하지 않으면 계속 값이 추가된다.
+		sentimentList.clear();
 		
-		// 문화||생활
-		if(choiceMenu.equals("sideCulture"))
-			newsData.setCommand("GetTopAssocSentimentByPeriod", "culture", "문화||생활");
+		NewsAssocSentiment newsAssocSentiment = new NewsAssocSentiment();
+		newsAssocSentiment.setLabel(null);
+		newsAssocSentiment.setFrequency(0);
+		newsAssocSentiment.setScore(0);
+		newsAssocSentiment.setPolarity(null);
+		sentimentList.add(newsAssocSentiment);
 		
-		// IT
-		if(choiceMenu.equals("sideIT"))
-			newsData.setCommand("GetTopAssocSentimentByPeriod", "IT", "컴퓨터");
-		
-		// 해당 사이드 메뉴에 대한 감성 키워드
-		topAssiciateSentimentMap = newsData.getResponseData();
-		
-		for(int i = 1; i <= 15; i++){
-			Map<String, Object> rankMap = (Map<String, Object>) topAssiciateSentimentMap[0].get("rank" + i);
-			model.addAttribute("rankMap" + i, rankMap);
+		// -- 추출된 키워드로 GetTopAssocSentimentByPeriod 실시 10개 추출 => 100개 감성블럭 생성 가능
+		for (int i = 0; i < list.size(); i++) {
+			newsData.setCommand(menuAndCateogryAndCode, 2, list.get(i).getKeyword());
+			topAssociateSentimentMap = newsData.getResponseData();
+			
+//			System.out.println(list.get(i).getKeyword());
+			
+			// 10번 반복
+			for (int j = 1; j <= 10; j++) {
+				@SuppressWarnings("unchecked")
+				Map<String, Object> rankMap = (Map<String, Object>) topAssociateSentimentMap[0].get("rank" + j);
+				
+				if(rankMap == null)
+					break;
+				
+				newsAssocSentiment = new NewsAssocSentiment();
+				newsAssocSentiment.setLabel((String) rankMap.get("label"));
+				newsAssocSentiment.setFrequency((Integer) rankMap.get("frequency"));
+				newsAssocSentiment.setScore((Double) rankMap.get("score"));
+				newsAssocSentiment.setPolarity((String) rankMap.get("polarity"));
+				
+				sentimentList.add(newsAssocSentiment);
+			}
 		}
 		
-//		{label=깨끗하다, frequency=1906, score=362.03235, polarity=other}
-//		{label=도덕적, frequency=953, score=57.994762, polarity=other}
-//		{label=원활하다, frequency=480, score=75.04859, polarity=other}
-//		{label=역겨운, frequency=339, score=55.16494, polarity=other}
-//		{label=떠나다, frequency=305, score=53.31615, polarity=neutral}
-//		{label=대표적, frequency=297, score=11.512738, polarity=neutral}
-//		{label=똑같다, frequency=261, score=40.59972, polarity=neutral}
-//		{label=범죄, frequency=212, score=1.8735881, polarity=negative}
-//		{label=의혹, frequency=192, score=3.967096, polarity=negative}
-//		{label=좋은, frequency=168, score=21.975758, polarity=other}
-//		{label=정확한, frequency=164, score=24.677788, polarity=neutral}
-//		{label=의문, frequency=162, score=2.8649797, polarity=neutral}
-//		{label=안전하다, frequency=160, score=24.885527, polarity=other}
-//		{label=의문 있다, frequency=160, score=24.220907, polarity=neutral}
-//		{label=시도하다, frequency=148, score=23.390179, polarity=neutral}
+//		for(NewsAssocSentiment n : sentimentList)
+//			System.out.println(n.getFrequency() + ", " + n.getPolarity());
 		
-		// API 조회 결과와 함께 페이지 뷰 리턴
-		return "news_table";
+		model.addAttribute("sentiment", sentimentList);
+		return model;
 	}
 }
