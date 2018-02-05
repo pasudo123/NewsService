@@ -32,6 +32,7 @@ public class NewsDataImpl implements NewsData {
 
 	// -- 명령어 찾기 & 명령어 설정
 	public void setCommand(String command, String category, String keyword) {
+		
 		/**
 		 * ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 		 * 
@@ -61,12 +62,25 @@ public class NewsDataImpl implements NewsData {
 			 * 
 			 ** ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 			 **/
-
+			
 			httpInputData.setOrderType(0);
 			httpInputData.setRowPerPage(10);
 			httpInputData.setPageNum(3);
-
+			
 			// 해당 분류 체계에 맞는 키워드를 얻어야 한다.
+			httpInputData.setKeyword(keyword);
+		}
+		
+		if(command.equals("GetKeywordDocumentsOfTwitter")){
+			httpCommand = new GetKeywordDocuments();
+			
+			httpInputData.setOrderType(0);
+			httpInputData.setLanguage();
+			httpInputData.setColorIssueSoruce();
+			httpInputData.setColorIssueDate();
+			httpInputData.setRowPerPage(1);
+			httpInputData.setPageNum(1);
+			
 			httpInputData.setKeyword(keyword);
 		}
 
@@ -188,19 +202,18 @@ public class NewsDataImpl implements NewsData {
 	@SuppressWarnings("rawtypes")
 	public Map[] getResponseData() {
 		BufferedReader bufferedReader = this.getBuffferReader();
-
-		// -- 1개 상위 키워드 추출
+		
+		// -- 1개 상위 키워드
 		return newsParser.readAndParseData(bufferedReader, myCommand);
 	}
 
 	// -- 제네릭 사용 매개변수 불특정 경고 제거
 	@Override
 	@SuppressWarnings("rawtypes")
-	public Map[] getResponseData(int check) {
+	public Map[] getResponseData(String check) {
 		BufferedReader bufferedReader = this.getBuffferReader();
-		
-		// -- 10개 상위 키워드 추출
-		return newsParser.readAndParseData(bufferedReader, myCommand + "10");
+		// -- 10개 상위 키워드
+		return newsParser.readAndParseData(bufferedReader, myCommand + check);
 	}
 	
 	public BufferedReader getBuffferReader(){

@@ -69,6 +69,7 @@
 		// ajax 로 화면 나타내기.
 		$('div.c_sideButton').click(function() {
 			var lowLevel = $(this).text();
+			
 			$.ajax({
 				type : 'post',
 				url : './viewForSentiment',
@@ -78,6 +79,8 @@
 
 				success : function(data) {
 					$("div.menuBox-imageWrapper").html(data)
+					$("div.menuBox-imageWrapper").find('span.big').text(lowLevel);
+					$("div.menuBox-imageWrapper").find('span.big').css('color', '#03cf16');
 				}
 			});
 		});

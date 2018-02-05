@@ -14,5 +14,5 @@ public interface NewsData {
 	public Map[] getResponseData();
 		
 	// -- API 로 값을 요청하고 반환된 내용을 획득하기 위함
-	public Map[] getResponseData(int check);
+	public Map[] getResponseData(String check);
 }

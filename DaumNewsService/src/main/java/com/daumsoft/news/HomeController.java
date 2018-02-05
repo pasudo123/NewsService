@@ -139,6 +139,29 @@ public class HomeController {
 	}
 	
 	
+	// -- 트위터 게시글 보기
+	@RequestMapping(value="/viewSentimentTwitter", method=RequestMethod.POST)
+	public String showSentimentTwitter(Model model, HttpServletRequest request){
+		
+		// keyword 값을 통한 트위터 글을 1개 검색
+		String keyword = request.getParameter("keyword");
+//		keyword = keyword.replace(" ", "");
+//		keyword = keyword.replace("/", "||");
+//		keyword = keyword.replace("-", "||");
+//		keyword = keyword.replace("SW", "소프트웨어");
+//		String mention = keyword.split("&&")[keyword.split("&&").length-1];
+//		System.out.println(keyword);
+		
+//		newsData.setCommand("GetKeywordDocumentsOfTwitter", null, keyword);
+//		keywordDocumentsMap = newsData.getResponseData();
+//		model.addAttribute("twitterUrl", keywordDocumentsMap[0].get("url"));
+		
+//		System.out.println(keywordDocumentsMap[0].get("url"));
+		
+		return "news_table";
+	}
+	
+	
 	// -- 모델 객체에 대한 반복된 프로세스 일괄 수행
 	public Model WorkAboutMainMenuProcess(Model model){
 		
@@ -165,7 +188,7 @@ public class HomeController {
 		
 		newsData.setCommand(menuAndCateogryAndCode, 1, null);
 		@SuppressWarnings("unchecked")
-		List<NewsTopKeywords> list = (List<NewsTopKeywords>) newsData.getResponseData(10)[0].get("topKeywords");
+		List<NewsTopKeywords> list = (List<NewsTopKeywords>) newsData.getResponseData("10")[0].get("topKeywords");
 		
 		// 한번 완전히 클리어하고 새롭게 시작
 		// 그렇게 하지 않으면 계속 값이 추가된다.

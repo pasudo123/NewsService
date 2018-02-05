@@ -6,7 +6,8 @@ import java.util.Map;
 public class HttpInputData {
 	private Map<String, Object> map = null;
 	private GetParameterDate getParameterDate = new GetParameterDate();
-	
+	private String source = null;
+
 	// -- 생성자
 	public HttpInputData(){
 		this.map = new HashMap<String, Object>();
@@ -20,6 +21,16 @@ public class HttpInputData {
 	/**ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	 * 파라미터 데이터 삽입 메소드 나열
 	 * ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ**/
+	
+	// --매체관련 
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+	
 	// 언어 선택
 	public void setLanguage(){
 		map.put("lang", "ko");
@@ -27,11 +38,13 @@ public class HttpInputData {
 	
 	// 매체 선택
 	public void setSource(){
+		setSource("news");
 		map.put("source", "news");
 	}
 	
 	// 연관어 감성 키워드 : 매체 선택
 	public void setColorIssueSoruce(){
+		setSource("twitter");
 		map.put("source", "twitter");
 	}
 	

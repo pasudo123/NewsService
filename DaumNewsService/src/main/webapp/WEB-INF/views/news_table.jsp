@@ -49,18 +49,35 @@
    				var label = $(this).find('input').val();
 
    				if(label == "null"){
-   					$('div.textContainer').find('div').text("N O N E");
+   					$('div.textContainer').find('div').find('span.small').text("N O N E");
    					return;
    				}
    				
-   				$('div.textContainer').find('div').text(label);
+   				$('div.textContainer').find('div').find('span.small').text(label);
+    		});
+    		
+    		$('td.issueText').click(function(){
+    			var bigIssueText = $('span.big').text();
+    			var smallIssueText = $('span.small').text();
+// 				var keyword = bigIssueText + "&&" + smallIssueText;
+//     			var tdTag = $(this);
+    			
+    			$.ajax({
+    				type : 'post',
+    				url : './viewSentimentTwitter',
+    				data : {
+    					"keyword" : keyword
+    				},
+    				success : function(data) {}
+    			});
     		});
     	});
-    	</SCRIPT>
+		</SCRIPT>
     </HEAD>
 
     <BODY>
 		<div class="tableWrapper">
+		<c:out value="${twitterUrl}" />
 			<!-- 가로 15 / 세로 7 = 15 * 7 = 105블럭 -->
 			<table>
 				<c:forEach varStatus="status" begin="1" end="6" step="1">
@@ -70,7 +87,8 @@
 						<img id="${sentiment[innerStatus.index].getFrequency()}&${sentiment[innerStatus.index].getPolarity()}" class="blockImage" src="" />
 						<input type="hidden" value="${sentiment[innerStatus.index].getLabel()}" />
 						<div class="container">
-<!-- 							<div class="text"></div> -->
+<%-- 						<a href="${twitterUrl}" target="_blank"></a> --%>
+<!-- 						<div class="text"></div> -->
 						</div>	
 					</td>
 					</c:forEach>
@@ -83,14 +101,15 @@
 						<img id="${sentiment[innerStatus.index].getFrequency()}&${sentiment[innerStatus.index].getPolarity()}" class="blockImage" src="" />
 						<input type="hidden" value="" />
 						<div class="container">
-<!-- 							<div class="text"></div> -->
+<%-- 						<a href="${twitterUrl}" target="_blank"></a> --%>
+<!-- 						<div class="text"></div> -->
 						</div>	
 					</td>
 					</c:forEach>
 					
 					<td colspan="5">
                         <div class="textContainer">
-                            <div class="text"></div>
+                            <div class="text"><span class="big"></span><span> :: </span><span class="small"></span></div>
                         </div>
                     </td>
                     
@@ -99,7 +118,8 @@
 						<img id="${sentiment[innerStatus.index].getFrequency()}&${sentiment[innerStatus.index].getPolarity()}" class="blockImage" src="" />
 						<input type="hidden" value="" />
 						<div class="container">
-<!-- 							<div class="text"></div> -->
+<%-- 					<a href="${twitterUrl}" target="_blank"></a> --%>
+<!-- 					<div class="text"></div> -->
 						</div>	
 					</td>
 					</c:forEach>

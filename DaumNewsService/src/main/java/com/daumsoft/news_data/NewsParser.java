@@ -35,6 +35,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class NewsParser{
 	private List<Object> elementList = null;
 	private Map<String, Object> map = null;
+	private Map[]mapArray = null;
 	
 	public NewsParser(){
 		elementList = new ArrayList<Object>();
@@ -56,20 +57,29 @@ public class NewsParser{
 		
 		if(command.equals("GetCategoryList"))
 			return convertListAboutGetCategoryList(readLineBuilder.toString());
+		
 		if(command.equals("GetKeywordDocuments"))
 			return convertListAboutGetKeywordDocuments(readLineBuilder.toString());
+		
+		if(command.equals("GetKeywordDocumentsOfTwitter"))
+			return convertListAboutGetKeywordDocumentsTwitter(readLineBuilder.toString());
+		
 		if(command.equals("GetTopKeywords"))
 			return convertListAboutGetTopKeywords(readLineBuilder.toString());
+		
 		if(command.equals("GetTopKeywords10"))
 			return convertListAboutGetTopKeywords10(readLineBuilder.toString());
+		
 		if(command.equals("GetTopAssocSentimentByPeriod"))
 			return convertListAboutGetTopAssocSentimentByPeriod(readLineBuilder.toString(), 1);
+		
 		if(command.equals("GetTopAssocSentimentByPeriod10"))
 			return convertListAboutGetTopAssocSentimentByPeriod(readLineBuilder.toString(), 10);
 		
 		return null;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public Map[] convertListAboutGetCategoryList(String line){
 		return null;
 	}
@@ -87,6 +97,16 @@ public class NewsParser{
 		return convertList2Map(elementList);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public Map[] convertListAboutGetKeywordDocumentsTwitter(String line){
+		map = (Map<String, Object>)this.setObjectMapper(line, 1);
+		
+		// [ GetKeywordDocuments Twitter ] 명령어
+		elementList = (List<Object>) map.get("documentList");
+		
+		return convertList2MapTwitter(elementList);
+	}
+	
 	// -- 해당 분류체계에 대한 상위 키워드 획득
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Map[] convertListAboutGetTopKeywords(String line){
@@ -96,7 +116,7 @@ public class NewsParser{
 		map = (Map<String, Object>)this.setObjectMapper(line, 1);
 
 		// [ GetTopKeywords ] 명령어
-		Map[]mapArray = new Map[1];
+		mapArray = new Map[1];
 		mapArray[0] = new HashMap<String, Object>();
 		mapArray[0].put("keyword", map.get("keyword"));
 		
@@ -108,7 +128,7 @@ public class NewsParser{
 		line = line.replaceAll("\\s", "");
 		
 		// [ GetTopKeywords10 ] 명령어
-		Map[]mapArray = new Map[1];
+		mapArray = new Map[1];
 		mapArray[0] = new HashMap<String, List<NewsTopKeywords>>();
 		
 		List<NewsTopKeywords> list = (List<NewsTopKeywords>)this.setObjectMapper(line, 10);
@@ -124,7 +144,7 @@ public class NewsParser{
 		elementList = (List<Object>) map.get("rows");
 		map = (HashMap<String, Object>)elementList.get(0);
 		
-		Map[]mapArray = new Map[1];
+		mapArray = new Map[1];
 		mapArray[0] = map;
 		
 		return mapArray;
@@ -157,25 +177,8 @@ public class NewsParser{
 	// -- list 컬렉션 객체를 map[] 로 반환
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Map[] convertList2Map(List<Object> list){
-		
-		// 맵 데이터, 맵 배열
-		Map<String, Object> mapData = new HashMap<String, Object>();
-		Map[]mapArray = new HashMap[list.size()];
+		setMapArray(list);
 		int size = mapArray.length;
-		
-		// 맵 배열 초기화
-		for(int index = 0; index < size; index++)
-			mapArray[index] = new HashMap<String, Object>();
-		
-		
-		// -- 맵 데이터로 캐스팅 이후 맵 배열 인덱스별로 키 밸류 초기화
-		for(int index = 0; index < size; index++){
-			mapData = (Map<String, Object>) list.get(index);
-			
-			for(Map.Entry<String, Object> map : mapData.entrySet()){
-				mapArray[index].put(map.getKey(), map.getValue());
-			}
-		}
 		
 		// -- 해당 맵 데이터에서, documentDate 값 정리
 		for(int index = 0; index < size; index++){
@@ -203,6 +206,35 @@ public class NewsParser{
 		return mapArray;
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public Map[] convertList2MapTwitter(List<Object> list){
+		// 맵 데이터, 맵 배열
+		setMapArray(list);
+		
+		return mapArray;
+	}
+	
+	// -- json 리턴받는 mapArray 정리
+	@SuppressWarnings({"unchecked" })
+	public void setMapArray(List<Object> list){
+		// 맵 데이터, 맵 배열
+		Map<String, Object> mapData = new HashMap<String, Object>();
+		mapArray = new HashMap[list.size()];
+		int size = mapArray.length;
+		
+		// 맵 배열 초기화
+		for(int index = 0; index < size; index++)
+			mapArray[index] = new HashMap<String, Object>();
+		
+		// -- 맵 데이터로 캐스팅 이후 맵 배열 인덱스별로 키 밸류 초기화
+		for(int index = 0; index < size; index++){
+			mapData = (Map<String, Object>) list.get(index);
+			
+			for(Map.Entry<String, Object> map : mapData.entrySet()){
+				mapArray[index].put(map.getKey(), map.getValue());
+			}
+		}
+	}
 	
 	// -- 날짜 시간 가독성 좋게 변환
 	public String[] getFormatDate(Object paramObject){
