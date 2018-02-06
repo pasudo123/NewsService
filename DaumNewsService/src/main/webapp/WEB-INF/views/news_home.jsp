@@ -5,7 +5,6 @@
 <HTML>
 <HEAD>
 <META CHARSET="UTF-8">
-
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/news_home.css" />">
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/news_home_side.css" />" >
 <script type="text/javascript" src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"></script>
