@@ -67,7 +67,11 @@ div.listWrapper ul li div.imageWrapper{
 
 div.imageWrapper img{
     /**
+    
+    - 이미지 세로 중앙 정렬,
+    - 이미지 가로 중앙 정렬,
     https://jonathannicol.com/blog/2014/06/16/centre-crop-thumbnails-with-css/
+    
     **/
 
     width:100%;
