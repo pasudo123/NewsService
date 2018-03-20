@@ -24,7 +24,9 @@ import com.daumsoft.news_data.NewsTopKeywords;
 public class HomeController {
 	
 	private NewsDataImpl newsData = new NewsDataImpl();
+	@SuppressWarnings("rawtypes")
 	private Map[] keywordDocumentsMap = null;
+	@SuppressWarnings("rawtypes")
 	private Map[] topAssociateSentimentMap = null;
 	
 	private String topKeyword = null;
